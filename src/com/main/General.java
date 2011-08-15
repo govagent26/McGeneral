@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.main.TimePlugin.Time;
+import com.main.TimePlugin.TimeCommand;
 import com.main.TimePlugin.TimeData; // Time Plugin
 
 /**
@@ -62,6 +62,9 @@ public class General extends JavaPlugin {
 	 * will create them if they are not found.
 	 * <br>
 	 * <b>Second:</b> A new class is created for each data file to store data.
+	 * <br>
+	 * <b>Lastly:</b> A message is logged to the command prompt to inform the
+	 * server owner that all data has been successfully loaded.
 	 */
 	public void dataReaderInitializer() {
 		File file = getDataFolder();
@@ -92,6 +95,6 @@ public class General extends JavaPlugin {
 	}
 	
 	private void getCommands() {
-		getCommand("time").setExecutor(new Time(this, timeData));
+		getCommand("time").setExecutor(new TimeCommand(this, timeData));
 	}
 }

@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerListener;
 public class McPlayerListener extends PlayerListener {
 	
 	/** The {@link #plugin} variable holds the instance of the <b>McGeneral</b> plugin */
-	General plugin;
+	private General plugin;
 	
 	/**
 	 * The {@link #McPlayerListener(General plugin)} constructor is called to

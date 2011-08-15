@@ -1,6 +1,6 @@
 name: McGeneral
 main: java.main.General
-version: 0.0.5
+version: 0.0.6
 author: Nash Wojdyla
 database: true
 description: This Bukkit plugin is a combination of many plugins.
@@ -10,6 +10,6 @@ commands:
     description: returns the player list.
     usage: |
   time:
-    aliases: t
+    aliases: t, ta
     description: returns the real life time.
     usage: |
