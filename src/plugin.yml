@@ -1,15 +1,25 @@
 name: McGeneral
 main: java.main.General
 version: 0.0.6
-author: Nash Wojdyla
+author: govagent26
 database: true
-description: This Bukkit plugin is a combination of many plugins.
+description: McGeneral is a combination of many bukkit plugins.
 commands:
   who:
     aliases: list
-    description: returns the player list.
-    usage: |
+    description: shows who is online to sender.
+    usage: who/list- shows a list of online players to sender
   time:
     aliases: t, ta
-    description: returns the real life time.
-    usage: |
+    description: can retrieve time and display to sender.
+    usage: >
+           time/t- displays the time to sender
+           ta- displays whether time announcements are on or off
+           ta on/off- changes announcing status to on or off
+           ti- displays the time interval
+           ti (number)- changes interval to (number)
+           tm- displays the time message
+           tm (message)- changes message to (message)
+           tf- displays the time format
+           tf 12/24- changes format to 12 or 24 hours
+           th- time help, shows all time commands to sender

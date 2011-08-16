@@ -33,10 +33,11 @@ public class TimeData {
 	 * <p>
 	 * This constructor stores the {@link #config} variable for easy future access.
 	 * Also, data is initially read from the external yaml file and stored in
-	 * many variable in this class.
+	 * many variable in this class. It is stored here for easy future access when 
+	 * determining what the user settings are.
 	 * <p>
-	 * It is stored here for easy future access when determining what the user
-	 * settings are.
+	 * The variable data is stored in {@link #announce}, {@link #interval}, {@link #message},
+	 * and {@link #format}.
 	 * 
 	 * @param config the configuration variable that can access the time data
 	 */
@@ -80,7 +81,8 @@ public class TimeData {
 	}
 	
 	/**
-	 * The {@link #setAnnounceStatus()} method sets the time announce status.
+	 * The {@link #setAnnounceStatus()} method sets the time announce status by
+	 * changing the {@link #announce} variable data.
 	 * 
 	 * @param announce whether to announce the time at certain intervals.
 	 */
@@ -101,7 +103,10 @@ public class TimeData {
 	}
 	
 	/**
-	 * The {@link #setInterval()} method sets the time announcing interval.
+	 * The {@link #setInterval()} method sets the time announcing interval by
+	 * changing the {@link #interval} variable data. It also calls the 
+	 * {@link #checkInterval()} method to verify that the interval is set 
+	 * appropriately.
 	 * 
 	 * @param interval the interval at which the time is announced on the server
 	 * @return true is the interval value is changed, otherwise false
@@ -127,7 +132,8 @@ public class TimeData {
 	}
 	
 	/**
-	 * The {@link #setMessage()} method sets the time message.
+	 * The {@link #setMessage()} method sets the time message by changing the
+	 * {@link #message} variable data.
 	 * 
 	 * @param message the message displayed when showing the time
 	 */
@@ -148,9 +154,9 @@ public class TimeData {
 	}
 	
 	/**
-	 * The {@link #setFormat(int)} method sets the time format. It also calls
-	 * the {@link #checkFormat()} method to verify that the format is set
-	 * appropriately.
+	 * The {@link #setFormat(int)} method sets the time format by changing the
+	 * {@link #format} variable data. It also calls the {@link #checkFormat()} 
+	 * method to verify that the format is set appropriately.
 	 * 
 	 * @param format
 	 * @return true is the format value is changed, false otherwise
