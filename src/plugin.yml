@@ -5,12 +5,18 @@ author: govagent26
 database: true
 description: McGeneral is a combination of many bukkit plugins.
 commands:
-  who:
-    aliases: list
-    description: shows who is online to sender.
-    usage: who/list- shows a list of online players to sender
+  alias:
+    aliases: [a, ]
+    description: changes a players display name.
+    usage: 
+  emote:
+    aliases: [me, e]
+    description: sends an emote to players in a radius.
+    usage: >
+           emote/me/e- sends an emote to players
+           Only in-game players may use the emote command
   time:
-    aliases: t, ta
+    aliases: [t, ta, ti, tm, tf, th]
     description: can retrieve time and display to sender.
     usage: >
            time/t- displays the time to sender
@@ -23,3 +29,7 @@ commands:
            tf- displays the time format
            tf 12/24- changes format to 12 or 24 hours
            th- time help, shows all time commands to sender
+  who:
+    aliases: list
+    description: shows who is online to sender.
+    usage: who/list- shows a list of online players to sender

@@ -1,10 +1,13 @@
 package com.main;
 
 import java.io.File;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.player.PlayerListener;
@@ -63,7 +66,7 @@ public class General extends JavaPlugin {
 	 * <b>First:</b> This method checks to see if the external files exist. It
 	 * will create them if they are not found.
 	 * <br>
-	 * <b>Second:</b> A new class is created for each data file to store data. Variable
+	 * <b>Second:</b> A new class is created for each data file to store data. Variables
 	 * that store external plugin data.
 	 * <br>
 	 * {@link #timeData}, 
@@ -117,6 +120,25 @@ public class General extends JavaPlugin {
 	 */
 	public void sendMessage(CommandSender sender, String message) {
 		sender.sendMessage(message);
+	}
+	
+	/**
+	 * The {@link #sendMessage(Player, String, int)} method is called to send a message
+	 * to the sender and to all players with the <b>radius</b> of the sender.
+	 * 
+	 * @param player the player to calculate the radius around and send a message to
+	 * @param message the message to send to all players within the radius
+	 * @param radius the distance to check for additional players
+	 */
+	public void sendMessage(Player player, String message, int radius) {
+		List<Entity> entities = player.getNearbyEntities(radius, radius, radius);
+    	
+    	for (Entity entity : entities) {
+    		if(entity instanceof Player) {
+    			sendMessage((Player)entity, message);
+    		}
+    	}
+    	sendMessage(player, message);
 	}
 	
 	/**

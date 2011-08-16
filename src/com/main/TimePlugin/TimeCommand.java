@@ -59,6 +59,7 @@ public class TimeCommand implements CommandExecutor {
 	 * @param command the overhead command that was entered(always 'time')
 	 * @param label the command actually typed in by the sender
 	 * @param args anything typed in after the original command
+	 * @return true if the entered command is valid, otherwise false
 	 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
