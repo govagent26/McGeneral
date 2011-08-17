@@ -1,14 +1,22 @@
 name: McGeneral
 main: com.main.General
-version: 0.0.10
+version: 0.0.11
 author: govagent26
-database: true
+database: false
 description: McGeneral is a combination of many bukkit plugins.
 commands:
   alias:
-    aliases: [a, ]
+    aliases: [a, ac, an, ar, ah]
     description: changes a players display name.
-    usage: 
+    usage: >
+           alias/a- shows the player's display name
+           ac- shows the player's display name color
+           ac (color)- changes player's name color to (color)
+           an- shows the player's display name without color
+           an (name)- changes player's name to (name)
+           ar- reloads the alias data from the yaml file
+           ah- alias help, shows all alias commands to sender
+           Only in-game players may use the alias commands
   emote:
     aliases: [me, e]
     description: sends an emote to players in a radius.
@@ -16,7 +24,7 @@ commands:
            emote/me/e- sends an emote to players
            Only in-game players may use the emote command
   time:
-    aliases: [t, ta, ti, tm, tf, th]
+    aliases: [t, ta, ti, tm, tf, tr, th]
     description: can retrieve time and display to sender.
     usage: >
            time/t- displays the time to sender
@@ -28,6 +36,7 @@ commands:
            tm (message)- changes message to (message)
            tf- displays the time format
            tf 12/24- changes format to 12 or 24 hours
+           tr- reloads time data from the yaml file
            th- time help, shows all time commands to sender
   who:
     aliases: list

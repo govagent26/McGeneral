@@ -52,6 +52,9 @@ public class TimeCommand implements CommandExecutor {
 	 * If <b>'tf'</b> is entered, {@link #tf(CommandSender, String[])} is called to handle
 	 * the entered command.
 	 * <br>
+	 * If <b>'tr'</b> is entered, {@link #tr(CommandSender)} is called to handle the
+	 * entered command.
+	 * <br>
 	 * If <b>'th'</b> is entered, the usage data from the <b>plugin.yml</b> file is shown
 	 * to the sender.
 	 * 
@@ -73,6 +76,8 @@ public class TimeCommand implements CommandExecutor {
 			tm(sender, args);
 		} else if (label.equals("tf")) {
 			tf(sender, args);
+		} else if (label.equals("tr")) {
+			tr(sender);
 		} else if (label.equals("th")) {
 			return false;
 		}
@@ -183,5 +188,16 @@ public class TimeCommand implements CommandExecutor {
 			timeData.setFormat(Integer.parseInt(args[0]));
 		}
 		plugin.sendMessage(sender, "Time format is " + timeData.getFormat() + " hours.");
+	}
+	
+	/**
+	 * The {@link #tr(CommandSender)} method is called to reload the time data from
+	 * the yaml file.
+	 * 
+	 * @param sender the sender who entered the command
+	 */
+	private void tr(CommandSender sender) {
+		timeData.readTimeData();
+		plugin.sendMessage(sender, "Time data has been reloaded!");
 	}
 }

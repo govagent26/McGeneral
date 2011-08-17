@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import com.main.General;
 import com.main.McConfig;
 
 /**
@@ -16,6 +17,9 @@ public class AliasData {
 	
 	/** The {@link #nodes} variable holds the strings for accessing the data file nodes */
 	private String[] nodes = {"players", "players.", ".color", ".alias"};
+	
+	/** The {@link #plugin} variable holds the instance of the <b>McGeneral</b> plugin */
+	private General plugin;
 	
 	/** The {@link #config} variable is used to access the <b>Config</b> class */
 	private McConfig config;
@@ -34,7 +38,7 @@ public class AliasData {
 	 * 
 	 * @param config the configuration variable that can access the time data
 	 */
-	public AliasData(McConfig config) {
+	public AliasData(General plugin, McConfig config) {
 		displaynames = new HashMap<String, AliasDisplayNameData>();
 		this.config = config;
 		readAliasData();
@@ -47,6 +51,9 @@ public class AliasData {
 	 * This method begins by retrieving a list of all players from the external yaml
 	 * file. It then individually adds each player, if there are any, to 
 	 * {@link #displaynames} for easy future access.
+	 * <p>
+	 * This method also checks the server to see if the player is online and registers
+	 * the display name on the server, if they are online.
 	 */
 	public void readAliasData() {
 		config.load();
@@ -54,9 +61,35 @@ public class AliasData {
 		config.save();
 		if (list != null) {
 			for (int x = 0; x < list.size(); x++) {
-				addPlayer(list.get(x));
+				String name = list.get(x);
+				Player player = plugin.getServer().getPlayer(name);
+				
+				addPlayer(name);
+				if (player != null) {
+					player.setDisplayName(displaynames.get(name).getDisplayName());
+				}
 			}
 		}
+	}
+	
+	/**
+	 * The {@link #addPlayer(Player)} method is called by methods outside of this
+	 * class in order to add a player to the {@link #displaynames} list.
+	 * <br>
+	 * This method calls {@link #addPlayer(String)} to add the player to the list.
+	 * <br>
+	 * This method then also sets the player's display name on the server.
+	 * 
+	 * @param player the player who needs to be added to the {@link #displaynames} list
+	 * @see #addPlayer(String)
+	 */
+	public void addPlayer(Player player) {
+		String name = player.getName();
+		
+		if (!displaynames.containsKey(name)) {
+			addPlayer(name);
+		}
+		player.setDisplayName(displaynames.get(name).getDisplayName());
 	}
 	
 	/**
@@ -69,7 +102,7 @@ public class AliasData {
 	 * 
 	 * @param player the name of the player to be added to the {@link #displaynames} list
 	 */
-	public void addPlayer(String player) {
+	private void addPlayer(String player) {
 		ChatColor color;
 		String alias;
 		
@@ -79,20 +112,20 @@ public class AliasData {
 		} catch (Exception e) {
 			color = ChatColor.WHITE;
 		}
-		alias = config.getString(nodes[1] + player + nodes[3], null);
+		alias = config.getString(nodes[1] + player + nodes[3], player);
 		displaynames.put(player, new AliasDisplayNameData(color, alias));
 		config.save();
 	}
 	
 	/**
 	 * The {@link #getAlias(Player)} method is called to retrieve the alias of the
-	 * player from the {@link #displaynames} list.
+	 * player without color.
 	 * 
 	 * @param player the player whose alias is being retrieved
 	 * @return the alias of the player(without color)
 	 */
 	public String getAlias(Player player) {
-		return displaynames.get(player.getName()).getAlias();
+		return ChatColor.stripColor(player.getDisplayName());
 	}
 	
 	/**

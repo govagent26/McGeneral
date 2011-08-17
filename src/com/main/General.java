@@ -89,7 +89,7 @@ public class General extends JavaPlugin {
 			}
 		}
 		timeData = new TimeData(new McConfig(new File(file, "time-settings.yml")));
-		aliasData = new AliasData(new McConfig(new File(file, "alias-settings.yml")));
+		aliasData = new AliasData(this, new McConfig(new File(file, "alias-settings.yml")));
 		
 		log.info("[McGeneral]: All data has been loaded from the data files");
 	}
@@ -100,7 +100,7 @@ public class General extends JavaPlugin {
 	 *  event listeners, and <b>weather</b> event listeners.
 	 */
 	private void registerEvents() {
-		PlayerListener pL = new McPlayerListener(this);
+		PlayerListener pL = new McPlayerListener(this, aliasData);
 		
 		PluginManager pm = getServer().getPluginManager();
     	
