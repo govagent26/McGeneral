@@ -1,6 +1,6 @@
 name: McGeneral
-main: java.main.General
-version: 0.0.6
+main: com.main.General
+version: 0.0.10
 author: govagent26
 database: true
 description: McGeneral is a combination of many bukkit plugins.

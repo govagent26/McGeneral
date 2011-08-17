@@ -1,6 +1,6 @@
 package com.main.TimePlugin;
 
-import com.main.Config;
+import com.main.McConfig;
 
 /**
  * The <b>TimeData</b> class is used to store all the time data that is in the
@@ -9,11 +9,11 @@ import com.main.Config;
 public class TimeData {
 	
 	/** The {@link #nodes} variable holds the stings for accessing the data file nodes */
-	private String nodes[] = {"time.announce.status", "time.announce.interval",
+	private String[] nodes = {"time.announce.status", "time.announce.interval",
 			"time.message", "time.format"};
 
 	/** The {@link #config} variable is used to access the <b>Config</b> class */
-	private Config config;
+	private McConfig config;
 	
 	/** The {@link #announce} variable that holds whether or not to announce the time */
 	private boolean announce;
@@ -28,37 +28,30 @@ public class TimeData {
 	private int format;
 	
 	/**
-	 * The {@link #TimeData(Config)} constructor is called when the plugin is
+	 * The {@link #TimeData(McConfig)} constructor is called when the plugin is
 	 * initialized.
 	 * <p>
-	 * This constructor stores the {@link #config} variable for easy future access.
-	 * Also, data is initially read from the external yaml file and stored in
-	 * many variable in this class. It is stored here for easy future access when 
-	 * determining what the user settings are.
-	 * <p>
-	 * The variable data is stored in {@link #announce}, {@link #interval}, {@link #message},
-	 * and {@link #format}.
+	 * The constructor stores the {@link #config} variable for easy future access.
+	 * It then calls the {@link #readTimeData()} method to read data from the
+	 * external yaml file and store it in this class.
 	 * 
 	 * @param config the configuration variable that can access the time data
 	 */
-	public TimeData(Config config) {
+	public TimeData(McConfig config) {
 		this.config = config;
-		config.load();
-		this.announce = config.getBoolean(nodes[0], true);
-		this.interval = config.getInt(nodes[1], 15);
-        this.message = config.getString(nodes[2], "The current time is:");
-        this.format = config.getInt(nodes[3], 12);
-        config.save();
-        checkInterval();
-        checkFormat();
+		readTimeData();
 	}
 	
 	/**
-	 * This {@link #readTimeData(Config)} method is called when the data from the
-	 * external files needs to be re-read.
+	 * This {@link #readTimeData(McConfig)} method is called when the data from the
+	 * external files needs to be read.
 	 * <p>
-	 * The data is stored in this class for easy future access when determining what 
-	 * the user settings are.
+	 * Data is read from the external yaml file and stored in many variable in this 
+	 * class. It is stored here for easy future access when determining what the 
+	 * user settings are.
+	 * <p>
+	 * The variable data is stored in {@link #announce}, {@link #interval}, {@link #message},
+	 * and {@link #format}.
 	 */
 	public void readTimeData() {
 		config.load();
@@ -82,7 +75,8 @@ public class TimeData {
 	
 	/**
 	 * The {@link #setAnnounceStatus()} method sets the time announce status by
-	 * changing the {@link #announce} variable data.
+	 * changing the {@link #announce} variable data and editing the external
+	 * yaml file.
 	 * 
 	 * @param announce whether to announce the time at certain intervals.
 	 */
@@ -104,9 +98,9 @@ public class TimeData {
 	
 	/**
 	 * The {@link #setInterval()} method sets the time announcing interval by
-	 * changing the {@link #interval} variable data. It also calls the 
-	 * {@link #checkInterval()} method to verify that the interval is set 
-	 * appropriately.
+	 * changing the {@link #interval} variable data and editing the external
+	 * yaml file. It also calls the {@link #checkInterval()} method to verify 
+	 * that the interval is set appropriately.
 	 * 
 	 * @param interval the interval at which the time is announced on the server
 	 * @return true is the interval value is changed, otherwise false
@@ -133,7 +127,7 @@ public class TimeData {
 	
 	/**
 	 * The {@link #setMessage()} method sets the time message by changing the
-	 * {@link #message} variable data.
+	 * {@link #message} variable data and editing the external yaml file.
 	 * 
 	 * @param message the message displayed when showing the time
 	 */
@@ -155,8 +149,9 @@ public class TimeData {
 	
 	/**
 	 * The {@link #setFormat(int)} method sets the time format by changing the
-	 * {@link #format} variable data. It also calls the {@link #checkFormat()} 
-	 * method to verify that the format is set appropriately.
+	 * {@link #format} variable data and editing the external yaml file. It 
+	 * also calls the {@link #checkFormat()} method to verify that the format 
+	 * is set appropriately.
 	 * 
 	 * @param format
 	 * @return true is the format value is changed, false otherwise

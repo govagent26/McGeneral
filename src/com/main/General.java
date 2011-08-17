@@ -14,6 +14,8 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.main.AliasPlugin.AliasData;
+import com.main.EmotePlugin.EmoteCommand;
 import com.main.TimePlugin.TimeCommand;
 import com.main.TimePlugin.TimeData; // Time Plugin
 import com.main.WhoPlugin.WhoCommand;
@@ -29,7 +31,10 @@ public class General extends JavaPlugin {
 	private static Logger log = Logger.getLogger("Minecraft");
 	
 	/** The {@link #timeData} variable holds the class that stores all the time data */
-	TimeData timeData;
+	private TimeData timeData;
+	
+	/** The {@link #aliasData} variable holds the class that stores all the alias data */
+	private AliasData aliasData;
 	
 	// /** The {@link #config} variable is used to access the <b>Config</b> class */
 	// private static Config config; <--- moved to each individual data class
@@ -69,7 +74,7 @@ public class General extends JavaPlugin {
 	 * <b>Second:</b> A new class is created for each data file to store data. Variables
 	 * that store external plugin data.
 	 * <br>
-	 * {@link #timeData}, 
+	 * {@link #timeData}, {@link #aliasData}, 
 	 * <br>
 	 * <b>Lastly:</b> A message is logged to the command prompt to inform the
 	 * server owner that all data has been successfully loaded.
@@ -83,7 +88,8 @@ public class General extends JavaPlugin {
 				return;
 			}
 		}
-		timeData = new TimeData(new Config(new File(file, "time-settings.yml")));
+		timeData = new TimeData(new McConfig(new File(file, "time-settings.yml")));
+		aliasData = new AliasData(new McConfig(new File(file, "alias-settings.yml")));
 		
 		log.info("[McGeneral]: All data has been loaded from the data files");
 	}
@@ -104,11 +110,14 @@ public class General extends JavaPlugin {
 	
 	/**
 	 * The {@link #getCommands()} method is called to register all commands and redirect
-	 * them to the individual command handler classes.
+	 * them to the individual command handler classes. Plugins with command handlers:
+	 * <br>
+	 * <b>TimeCommand</b>, <b>WhoCommand</b>, <b>EmoteCommand</b>, 
 	 */
 	private void getCommands() {
 		getCommand("time").setExecutor(new TimeCommand(this, timeData));
 		getCommand("who").setExecutor(new WhoCommand(this));
+		getCommand("emote").setExecutor(new EmoteCommand(this));
 	}
 	
 	/**

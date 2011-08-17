@@ -1,22 +1,23 @@
 package com.main;
 
 import java.io.File;
+import java.util.List;
 
 import org.bukkit.util.config.Configuration;
 
 /**
- * The <b>Config</b> class extends the <b>Configuration</b> class in
- * order to write data to the files when it is not found.
+ * The <b>Config</b> class extends the <b>Configuration</b> class in order to write 
+ * data to the files when it is not found.
  */
-public class Config extends Configuration {
+public class McConfig extends Configuration {
 	
 	/**
-	 * The {@link #Config(File)} constructor is called to store the
-	 * file data in the parent class.
+	 * The {@link #Config(File)} constructor is called to store the file data in 
+	 * the parent class.
 	 * 
 	 * @param file the file data used to access and retrieve/alter data
 	 */
-	public Config(File file) {
+	public McConfig(File file) {
         super(file);
     }
 	
@@ -42,5 +43,13 @@ public class Config extends Configuration {
             setProperty(path, defaultValue);
         }
         return super.getBoolean(path, defaultValue);
+    }
+    
+    @Override
+    public List<String> getKeys(String path) {
+    	if (getProperty(path) == null) {
+    		setProperty(path, "");
+    	}
+    	return super.getKeys(path);
     }
 }
