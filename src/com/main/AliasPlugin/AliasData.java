@@ -25,7 +25,7 @@ public class AliasData {
 	private McConfig config;
 	
 	/** The {@link #displaynames} variable holds each player's name and class that stores the alias data */
-	private HashMap<String, AliasDisplayNameData> displaynames;
+	private HashMap<String, AliasInfoData> displaynames;
 	
 	/**
 	 * The {@link #AliasData(McConfig)} constructor is called when the plugin is
@@ -36,10 +36,11 @@ public class AliasData {
 	 * the {@link #readAliasData()} method to read data from the external yaml file 
 	 * and store it in this class.
 	 * 
-	 * @param config the configuration variable that can access the time data
+	 * @param config the configuration variable that can access the alias data
 	 */
 	public AliasData(General plugin, McConfig config) {
-		displaynames = new HashMap<String, AliasDisplayNameData>();
+		displaynames = new HashMap<String, AliasInfoData>();
+		this.plugin = plugin;
 		this.config = config;
 		readAliasData();
 	}
@@ -113,7 +114,7 @@ public class AliasData {
 			color = ChatColor.WHITE;
 		}
 		alias = config.getString(nodes[1] + player + nodes[3], player);
-		displaynames.put(player, new AliasDisplayNameData(color, alias));
+		displaynames.put(player, new AliasInfoData(color, alias));
 		config.save();
 	}
 	
@@ -154,7 +155,7 @@ public class AliasData {
 	 * @return the color of the player
 	 */
 	public String getColor(Player player) {
-		return displaynames.get(player.getName()).getColor().toString();
+		return displaynames.get(player.getName()).getColor().name();
 	}
 	
 	/**
@@ -162,7 +163,7 @@ public class AliasData {
 	 * list and edits the external yaml file. It then sets the player's display name
 	 * on the server.
 	 * 
-	 * @param player the player whose alias is being changed
+	 * @param player the player whose display name color is being changed
 	 * @param color what the player's color is being changed to
 	 */
 	public boolean setColor(Player player, String color) {

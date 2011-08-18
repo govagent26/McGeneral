@@ -50,11 +50,11 @@ public class AliasCommand implements CommandExecutor {
 	 * If <b>'ar'</b> is entered, {@link #ar(CommandSender)} is called to handle
 	 * the entered command.
 	 * <br>
-	 * If <b>'th'</b> is entered, the usage data from the <b>plugin.yml</b> file is shown
+	 * If <b>'ah'</b> is entered, the usage data from the <b>plugin.yml</b> file is shown
 	 * to the sender.
 	 * 
 	 * @param sender the sender who entered the time command
-	 * @param command the overhead command that was entered(always 'time')
+	 * @param command the overhead command that was entered(always 'alias')
 	 * @param label the command actually typed in by the sender
 	 * @param args anything typed in after the original command
 	 * @return true if the entered command is valid, otherwise false
@@ -81,8 +81,7 @@ public class AliasCommand implements CommandExecutor {
 	}
 	
 	/**
-	 * The {@link #a(Player)} method is called to show the display name of the player to
-	 * the player.
+	 * The {@link #a(Player)} method is called to show the player his/her display name.
 	 * 
 	 * @param player the player who entered the command
 	 */
@@ -107,9 +106,9 @@ public class AliasCommand implements CommandExecutor {
 			String color = "";
 			
 			for (String arg : args) {
-				color += arg + " ";
+				color += arg + "_";
 			}
-			aliasData.setColor(player, color);
+			aliasData.setColor(player, color.substring(0, color.length() - 1));
 		}
 		plugin.sendMessage(player, "The color of your display name is " + aliasData.getColor(player));
 	}

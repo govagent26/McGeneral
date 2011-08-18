@@ -14,8 +14,11 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.main.AliasPlugin.AliasCommand;
 import com.main.AliasPlugin.AliasData;
 import com.main.EmotePlugin.EmoteCommand;
+import com.main.PrefixPlugin.PrefixCommand;
+import com.main.PrefixPlugin.PrefixData;
 import com.main.TimePlugin.TimeCommand;
 import com.main.TimePlugin.TimeData; // Time Plugin
 import com.main.WhoPlugin.WhoCommand;
@@ -36,8 +39,11 @@ public class General extends JavaPlugin {
 	/** The {@link #aliasData} variable holds the class that stores all the alias data */
 	private AliasData aliasData;
 	
-	// /** The {@link #config} variable is used to access the <b>Config</b> class */
-	// private static Config config; <--- moved to each individual data class
+	/** The {@link #prefixData} variable holds the class that stores all the prefix data */
+	private PrefixData prefixData;
+	
+	/** The {@link #tick} variable holds the class that runs repeating tasks */
+	private Tick tick;
 
 	/**
 	 * The {@link #onDisable()} method is called moments before the plugin
@@ -47,7 +53,7 @@ public class General extends JavaPlugin {
 	 */
 	@Override
 	public void onDisable() {
-		// TODO Auto-generated method stub
+		tick.setRunning(false);
 	}
 
 	/**
@@ -62,6 +68,8 @@ public class General extends JavaPlugin {
 		registerEvents();
 		getCommands();
 		
+		
+		tick = new Tick(this, getDataFolder());
 	}
 	
 	/**
@@ -74,7 +82,7 @@ public class General extends JavaPlugin {
 	 * <b>Second:</b> A new class is created for each data file to store data. Variables
 	 * that store external plugin data.
 	 * <br>
-	 * {@link #timeData}, {@link #aliasData}, 
+	 * {@link #timeData}, {@link #aliasData}, {@link #prefixData},
 	 * <br>
 	 * <b>Lastly:</b> A message is logged to the command prompt to inform the
 	 * server owner that all data has been successfully loaded.
@@ -90,7 +98,7 @@ public class General extends JavaPlugin {
 		}
 		timeData = new TimeData(new McConfig(new File(file, "time-settings.yml")));
 		aliasData = new AliasData(this, new McConfig(new File(file, "alias-settings.yml")));
-		
+		prefixData = new PrefixData(new McConfig(new File(file, "prefix-settings.yml")));
 		log.info("[McGeneral]: All data has been loaded from the data files");
 	}
 	
@@ -100,44 +108,80 @@ public class General extends JavaPlugin {
 	 *  event listeners, and <b>weather</b> event listeners.
 	 */
 	private void registerEvents() {
-		PlayerListener pL = new McPlayerListener(this, aliasData);
+		PlayerListener pL = new McPlayerListener(this, aliasData, prefixData);
 		
 		PluginManager pm = getServer().getPluginManager();
     	
-    	pm.registerEvent(Event.Type.PLAYER_JOIN, pL, Priority.Normal, this);
+		pm.registerEvent(Event.Type.PLAYER_JOIN, pL, Priority.Normal, this);
+		pm.registerEvent(Event.Type.PLAYER_CHAT, pL, Priority.Normal, this);
 		
 	}
 	
 	/**
 	 * The {@link #getCommands()} method is called to register all commands and redirect
-	 * them to the individual command handler classes. Plugins with command handlers:
+	 * them to the individual command handler classes. 
 	 * <br>
-	 * <b>TimeCommand</b>, <b>WhoCommand</b>, <b>EmoteCommand</b>, 
+	 * Plugins with command handlers:
+	 * <br>
+	 * <b>AliasCommand</b>, <b>EmoteCommand</b>, <b>PrefixCommand</b>,<b>TimeCommand</b>,
+	 * <b>WhoCommand</b>,
 	 */
 	private void getCommands() {
+		getCommand("alias").setExecutor(new AliasCommand(this, aliasData));
+		getCommand("emote").setExecutor(new EmoteCommand(this));
+		getCommand("prefix").setExecutor(new PrefixCommand(this, prefixData));
 		getCommand("time").setExecutor(new TimeCommand(this, timeData));
 		getCommand("who").setExecutor(new WhoCommand(this));
-		getCommand("emote").setExecutor(new EmoteCommand(this));
 	}
 	
 	/**
 	 * The {@link #sendMessage(CommandSender, String)} method is called to send a message
 	 * to an individual sender.
+	 * <p>
+	 * This method attempts to find out who the sender is. If it is a player, then the
+	 * {@link #sendMessage(Player, String)} method is called to see the message.
+	 * Otherwise, the sender is assumed to be the command prompt and thus the message is
+	 * logged to the console.
 	 * 
 	 * @param sender the sender to display the message to
 	 * @param message the message to be displayed to the sender
+	 * @see #sendMessage(Player, String)
+	 * @see #sendMessage(Player, String, int)
 	 */
 	public void sendMessage(CommandSender sender, String message) {
-		sender.sendMessage(message);
+		if (sender instanceof Player) {
+			sendMessage((Player)sender, message);
+		} else {
+			log.info(message);
+		}
+	}
+	
+	/**
+	 * The {@link #sendMessage(Player, String)} method is called to send a message to a
+	 * player.
+	 * 
+	 * @param player the player to display the message to
+	 * @param message the message to be displayed
+	 * @see #sendMessage(CommandSender, String)
+	 * @see #sendMessage(Player, String, int)
+	 */
+	public void sendMessage(Player player, String message) {
+		player.sendMessage(message);
 	}
 	
 	/**
 	 * The {@link #sendMessage(Player, String, int)} method is called to send a message
 	 * to the sender and to all players with the <b>radius</b> of the sender.
+	 * <p>
+	 * After generating a list of entities in the <b>radius</b>, the entity is checked
+	 * to see if it is a player. If so, the {@link #sendMessage(Player, String)} method
+	 * is called to send the message to that player.
 	 * 
 	 * @param player the player to calculate the radius around and send a message to
 	 * @param message the message to send to all players within the radius
 	 * @param radius the distance to check for additional players
+	 * @see #sendMessage(CommandSender, String)
+	 * @see #sendMessage(Player, String)
 	 */
 	public void sendMessage(Player player, String message, int radius) {
 		List<Entity> entities = player.getNearbyEntities(radius, radius, radius);
@@ -155,8 +199,28 @@ public class General extends JavaPlugin {
 	 * on the server.
 	 * 
 	 * @param message the message to be broadcasted
+	 * @see #broadcast(String, boolean)
 	 */
 	public void broadcast(String message) {
 		getServer().broadcastMessage(message);
+	}
+	
+	/**
+	 * The {@link #broadcast(String, boolean)} method is called to send a message to all
+	 * players on the server and possibly to the console.
+	 * <p>
+	 * If <b>value</b> is true, then the message is logged to the console in addition to
+	 * being sent to all players. This method called the {@link #broadcast(String)}
+	 * method to send the message to all players.
+	 * 
+	 * @param message the message to be broadcasted
+	 * @param value whether or not to log the message to the console
+	 * @see #broadcast(String)
+	 */
+	public void broadcast(String message, boolean value) {
+		if (value) {
+			log.info(message);
+		}
+		broadcast(message);
 	}
 }

@@ -23,6 +23,19 @@ commands:
     usage: >
            emote/me/e- sends an emote to players
            Only in-game players may use the emote command
+  prefix:
+    aliases: [p, pc, pn, pr, ph]
+    description: changes a players display name.
+    usage: >
+           prefix/p- shows the player's prefix
+           pc- shows the player's prefix color
+           pc (color)- changes player's prefix color to (color)
+           pn- shows the player's prefix without color
+           pn (prefix)- changes player's prefix to (prefix)
+           pr- reloads the prefix data from the yaml file
+           ph- prefix help, shows all prefix commands to sender
+           Only in-game players may use the prefix commands
+
   time:
     aliases: [t, ta, ti, tm, tf, tr, th]
     description: can retrieve time and display to sender.

@@ -21,6 +21,14 @@ public class McConfig extends Configuration {
         super(file);
     }
 	
+	/**
+	 * The {@link #getInt(String, int)} method is used to retrieve an integer value
+	 * from the configuration file. If no value exists, the <b>defaultvalue</b> is
+	 * put into the file.
+	 * 
+	 * @param path the location in the file to look for the value
+	 * @param defaultValue the value to put in the file if none exists
+	 */
     @Override
     public int getInt(String path, int defaultValue) {
         if (getProperty(path) == null) {
@@ -29,6 +37,14 @@ public class McConfig extends Configuration {
         return super.getInt(path, defaultValue);
     }
     
+	/**
+	 * The {@link #getString(String, String)} method is used to retrieve a string value
+	 * from the configuration file. If no value exists, the <b>defaultvalue</b> is
+	 * put into the file.
+	 * 
+	 * @param path the location in the file to look for the value
+	 * @param defaultValue the value to put in the file if none exists
+	 */
     @Override
     public String getString(String path, String defaultValue) {
         if (getProperty(path) == null) {
@@ -37,6 +53,14 @@ public class McConfig extends Configuration {
         return super.getString(path, defaultValue);
     }
     
+	/**
+	 * The {@link #getBoolean(String, boolean)} method is used to retrieve a boolean value
+	 * from the configuration file. If no value exists, the <b>defaultvalue</b> is
+	 * put into the file.
+	 * 
+	 * @param path the location in the file to look for the value
+	 * @param defaultValue the value to put in the file if none exists
+	 */
     @Override
     public boolean getBoolean(String path, boolean defaultValue) {
         if (getProperty(path) == null) {
@@ -45,6 +69,13 @@ public class McConfig extends Configuration {
         return super.getBoolean(path, defaultValue);
     }
     
+	/**
+	 * The {@link #getKeys(String)} method is used to retrieve all the keys from
+	 * the configuration file. If no keys exist, by default, a blank path will be
+	 * put into the file.
+	 * 
+	 * @param path the location in the file to look for the keys
+	 */
     @Override
     public List<String> getKeys(String path) {
     	if (getProperty(path) == null) {

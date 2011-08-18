@@ -13,7 +13,7 @@ public class Who {
 	
 	/**
 	 * This {@link #tellWho(General)} method is called whenever the time should be broadcasted
-	 * to the entire server. It calls the overhead method, 
+	 * to the entire server. It calls the overhead method,
 	 * {@link #tellWho(General, CommandSender)}, to deal with who is online.
 	 * 
 	 * @param plugin the plugin data for the <b>McGeneral</b> class
@@ -33,6 +33,7 @@ public class Who {
 	 * 
 	 * @param plugin the plugin data for the <b>McGeneral</b> class
 	 * @param sender the sender of the command if one exists, otherwise null
+	 * @see #tellWho(General)
 	 */
 	public static void tellWho(General plugin, CommandSender sender) {
 		Player[] players = plugin.getServer().getOnlinePlayers();
@@ -50,7 +51,7 @@ public class Who {
 			
 			if (sender == null) {
 				plugin.broadcast("There are " + playercount + " players online.");
-				plugin.broadcast(message);
+				plugin.broadcast(message, true);
 			} else {
 				plugin.sendMessage(sender, "There are " + playercount + " players online.");
 				plugin.sendMessage(sender, message);

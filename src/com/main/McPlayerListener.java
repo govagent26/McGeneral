@@ -1,11 +1,15 @@
 package com.main;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
 
 import com.main.AliasPlugin.Alias;
 import com.main.AliasPlugin.AliasData;
+import com.main.HealthPlugin.Health;
+import com.main.PrefixPlugin.Prefix;
+import com.main.PrefixPlugin.PrefixData;
 
 /**
  * The <b>McPlayerListener</b> class is used to handle all registered <b>player
@@ -19,6 +23,9 @@ public class McPlayerListener extends PlayerListener {
 	/** The {@link #aliasData} variable holds the class that stores all the alias data */
 	private AliasData aliasData;
 	
+	/** The {@link #prefixData} variable holds the class that stores all the prefix data */
+	private PrefixData prefixData;
+	
 	/**
 	 * The {@link #McPlayerListener(General plugin)} constructor is called to
 	 * transfer the {@link #plugin} data to this class.
@@ -26,9 +33,10 @@ public class McPlayerListener extends PlayerListener {
 	 * @param plugin the instance of the <b>McGeneral</b> plugin
 	 * @param aliasData the <b>AliasData</b> class that holds the alias data from the yaml
 	 */
-	public McPlayerListener(General plugin, AliasData aliasData) {
+	public McPlayerListener(General plugin, AliasData aliasData, PrefixData prefixData) {
 		this.plugin = plugin;
 		this.aliasData = aliasData;
+		this.prefixData = prefixData;
 	}
 	
 	/**
@@ -45,5 +53,13 @@ public class McPlayerListener extends PlayerListener {
 		Player player = event.getPlayer();
 		
 		Alias.setDisplayName(player, aliasData);
+	}
+	
+	public void onPlayerChat(PlayerChatEvent event) {
+		Player player = event.getPlayer();
+		String prefix = Prefix.getPrefix(player, prefixData);
+		
+		event.setFormat((prefix == null ? "" : prefix) + event.getFormat());
+		event.setMessage(Health.getHealthChat(player) + event.getMessage());
 	}
 } 

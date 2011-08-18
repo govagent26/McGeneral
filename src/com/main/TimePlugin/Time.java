@@ -37,6 +37,7 @@ public class Time {
 	 * @param plugin the plugin data for the <b>McGeneral</b> class
 	 * @param timeData the <b>TimeData</b> class that holds the time settings from the yaml
 	 * @param sender the sender of the command if one exists, otherwise null
+	 * @see #tellTime(General, TimeData)
 	 */
 	public static void tellTime(General plugin, TimeData timeData, CommandSender sender) {
 		String theTime = timeData.getMessage();
@@ -47,7 +48,7 @@ public class Time {
 			theTime += String.format("%1$tH:%1$tM", Calendar.getInstance());
 		}
 		if (sender == null) {
-			plugin.broadcast(theTime);
+			plugin.broadcast(theTime, true);
 		} else {
 			plugin.sendMessage(sender, theTime);
 		}

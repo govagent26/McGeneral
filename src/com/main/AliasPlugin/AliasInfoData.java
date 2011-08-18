@@ -3,28 +3,28 @@ package com.main.AliasPlugin;
 import org.bukkit.ChatColor;
 
 /**
- * The <b>AliasDisplayNameData</b> class is used to store each player's alias and
+ * The <b>AliasInfoData</b> class is used to store each player's alias and
  * name color.
  */
-public class AliasDisplayNameData {
+public class AliasInfoData {
 	
-	/** The {@link #chatcolor} variable stores the color of the display name */
+	/** The {@link #chatcolor} variable stores the display name color */
 	private ChatColor chatcolor;
 	
-	/** The {@link #alias} variable stores the alias of the display name */
+	/** The {@link #alias} variable stores the display name without color */
 	private String alias;
 
 	/**
-	 * The {@link #AliasDisplayNameData(ChatColor, String)} constructor is called
+	 * The {@link #AliasInfoData(ChatColor, String)} constructor is called
 	 * to store a player's display name data.
 	 * <p>
 	 * This constructor stores the {@link #chatcolor} and {@link #alias} variables
 	 * for future easy access.
 	 * 
-	 * @param chatcolor the color of the display name
-	 * @param alias the alias of the display name
+	 * @param chatcolor the display name color
+	 * @param alias the display name without color
 	 */
-	public AliasDisplayNameData(ChatColor chatcolor, String alias) {
+	public AliasInfoData(ChatColor chatcolor, String alias) {
 		this.chatcolor = chatcolor;
 		this.alias = alias;
 	}
@@ -33,7 +33,7 @@ public class AliasDisplayNameData {
 	 * The {@link #getColor()} method is called to retrieve the color of the display
 	 * name.
 	 * 
-	 * @return the color of the display name
+	 * @return the display name color
 	 */
 	public ChatColor getColor() {
 		return chatcolor;
@@ -43,7 +43,7 @@ public class AliasDisplayNameData {
 	 * The {@link #setColor(ChatColor)} method is called to change the color of the
 	 * display name.
 	 * 
-	 * @param color the color that the display name is changed to
+	 * @param color what the display name color is being changed to
 	 */
 	public void setColor(ChatColor color) {
 		this.chatcolor = color;
@@ -53,7 +53,7 @@ public class AliasDisplayNameData {
 	 * The {@link #getAlias()} method is called to retrieve the alias of the display
 	 * name.
 	 * 
-	 * @return the alias of the display name(without color)
+	 * @return the display name without color
 	 */
 	public String getAlias() {
 		return alias;
@@ -63,7 +63,7 @@ public class AliasDisplayNameData {
 	 * The {@link #setAlias(String)} method is called to change the alias of the
 	 * display name.
 	 * 
-	 * @param alias the alias that the display name is changed to
+	 * @param alias what the display name is being changed to(without color)
 	 */
 	public void setAlias(String alias) {
 		this.alias = alias;
@@ -74,9 +74,9 @@ public class AliasDisplayNameData {
 	 * name. This method combines the {@link #chatcolor} and {@link #alias} variables
 	 * together to create the display name.
 	 * 
-	 * @return the display name of the player(name and color)
+	 * @return the display name of the player(name with color)
 	 */
 	public String getDisplayName() {
-		return chatcolor + alias;
+		return chatcolor.toString() + alias;
 	}
 }
