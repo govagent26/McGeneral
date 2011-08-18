@@ -6,4 +6,5 @@ Included mods:
 -Health Mod: Adds a player's health to chat in the form of a fraction with colors.
 -Prefix Mod: Adds a prefix to a player when chatting.
 -Time Mod: Can announce the time to the server or individual player on command.	
+-Uptime Mod: stores the uptime of the server.
 -Who Mod: Lists all online players.

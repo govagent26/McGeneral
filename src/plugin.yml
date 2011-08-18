@@ -51,6 +51,10 @@ commands:
            tf 12/24- changes format to 12 or 24 hours
            tr- reloads time data from the yaml file
            th- time help, shows all time commands to sender
+  uptime:
+    aliases: u
+    description: shows how long the server has been running.
+    usage: uptime/u- displays the uptime of the server
   who:
     aliases: list
     description: shows who is online to sender.

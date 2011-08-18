@@ -1,11 +1,9 @@
 package com.main;
 
 import java.nio.channels.FileChannel;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -99,10 +97,11 @@ public class FileUtil {
      * @param message what is written to the file
      */
     public static void writeFile(File file, String message) {
+    	
     	try {
-    	    BufferedWriter out = new BufferedWriter(new FileWriter(file));
-    	    out.write(message);
-    	    out.close();
+    		file.createNewFile();
+    		
+    		
     	} catch (IOException e) {
     		
     	}

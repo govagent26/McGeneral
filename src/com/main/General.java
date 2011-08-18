@@ -21,6 +21,8 @@ import com.main.PrefixPlugin.PrefixCommand; // Prefix Plugin
 import com.main.PrefixPlugin.PrefixData; // "          "
 import com.main.TimePlugin.TimeCommand; // Time Plugin
 import com.main.TimePlugin.TimeData; // "          "
+import com.main.Uptime.Uptime; // Uptime Plugin
+import com.main.Uptime.UptimeCommand; // "          "
 import com.main.WhoPlugin.WhoCommand; // Who Plugin
 
 /**
@@ -42,6 +44,9 @@ public class General extends JavaPlugin {
 	/** The {@link #prefixData} variable holds the class that stores all the prefix data */
 	private PrefixData prefixData;
 	
+	/** The {@link #uptime} variable holds the time when the server was started */
+	private long uptime;
+	
 	/** The {@link #tick} variable holds the class that runs repeating tasks */
 	private Tick tick;
 
@@ -53,6 +58,7 @@ public class General extends JavaPlugin {
 	 */
 	@Override
 	public void onDisable() {
+		Uptime.storeUptime(getDataFolder(), uptime);
 		tick.setRunning(false);
 	}
 
@@ -68,7 +74,7 @@ public class General extends JavaPlugin {
 		registerEvents();
 		getCommands();
 		
-		
+		uptime = System.currentTimeMillis();
 		tick = new Tick(this, getDataFolder());
 	}
 	
@@ -131,6 +137,7 @@ public class General extends JavaPlugin {
 		getCommand("emote").setExecutor(new EmoteCommand(this));
 		getCommand("prefix").setExecutor(new PrefixCommand(this, prefixData));
 		getCommand("time").setExecutor(new TimeCommand(this, timeData));
+		getCommand("uptime").setExecutor(new UptimeCommand(this, uptime));
 		getCommand("who").setExecutor(new WhoCommand(this));
 	}
 	

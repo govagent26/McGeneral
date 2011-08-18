@@ -27,6 +27,7 @@ public class Tick extends Thread {
 	 * by assigning a value of true to {@link #running}.
 	 * 
 	 * @param plugin the plugin data for the <b>McGeneral</b> class
+	 * @param file the dataFolder for this plugin
 	 */
 	public Tick(General plugin, File file) {
 		this.plugin = plugin;
