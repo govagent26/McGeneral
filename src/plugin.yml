@@ -25,7 +25,7 @@ commands:
            Only in-game players may use the emote command
   prefix:
     aliases: [p, pc, pn, pr, ph]
-    description: changes a players display name.
+    description: changes a players prefix.
     usage: >
            prefix/p- shows the player's prefix
            pc- shows the player's prefix color

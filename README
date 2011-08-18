@@ -4,6 +4,6 @@ Included mods:
 -Alias Mod: Changes a player's display name and its color.
 -Emote Mod: Allows the use of emotes(chatting to only players in a short radius).
 -Health Mod: Adds a player's health to chat in the form of a fraction with colors.
--Prefic Mod: Adds a prefix to a player when chatting.
+-Prefix Mod: Adds a prefix to a player when chatting.
 -Time Mod: Can announce the time to the server or individual player on command.	
 -Who Mod: Lists all online players.

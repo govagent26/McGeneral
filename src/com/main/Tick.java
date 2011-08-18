@@ -1,6 +1,7 @@
 package com.main;
 
 import java.io.File;
+import java.util.Calendar;
 
 /**
  * The <b>Tick</b> class is used to schedule repeating tasks while the server is
@@ -48,7 +49,7 @@ public class Tick extends Thread {
         	try {
             	Thread.sleep(1000);
             } catch (Exception e){
-            	logErrors(e);
+            	logErrors(e.getMessage());
             }
         }
 	}
@@ -64,7 +65,15 @@ public class Tick extends Thread {
 		running = value;
 	}
 	
-	private void logErrors(Exception e) {
-		//TODO figure out how to put data into a .txt file
+	/**
+	 * The {@link #logErrors(Exception)} method is called to log exception errors from
+	 * this class to a specified file.
+	 * 
+	 * @param e the exception that occured
+	 */
+	private void logErrors(String emessage) {
+		String message = String.format("%1$tm-%1$td-%1$tY %1$tH %1$tM %1$tS : ", Calendar.getInstance());
+		
+		FileUtil.writeFile(new File(file, "Thread-Errors.txt"), message + emessage);
 	}
 }

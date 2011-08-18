@@ -14,14 +14,14 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.main.AliasPlugin.AliasCommand;
-import com.main.AliasPlugin.AliasData;
-import com.main.EmotePlugin.EmoteCommand;
-import com.main.PrefixPlugin.PrefixCommand;
-import com.main.PrefixPlugin.PrefixData;
-import com.main.TimePlugin.TimeCommand;
-import com.main.TimePlugin.TimeData; // Time Plugin
-import com.main.WhoPlugin.WhoCommand;
+import com.main.AliasPlugin.AliasCommand; // Alias Plugin
+import com.main.AliasPlugin.AliasData; // "          "
+import com.main.EmotePlugin.EmoteCommand; // Emote Plugin
+import com.main.PrefixPlugin.PrefixCommand; // Prefix Plugin
+import com.main.PrefixPlugin.PrefixData; // "          "
+import com.main.TimePlugin.TimeCommand; // Time Plugin
+import com.main.TimePlugin.TimeData; // "          "
+import com.main.WhoPlugin.WhoCommand; // Who Plugin
 
 /**
  * The <b>General</b> class is the main class of the <b>McGeneral</b> plugin.
