@@ -18,7 +18,7 @@ public class TimeData {
 	/** The {@link #announce} variable that holds whether or not to announce the time */
 	private boolean announce;
 	
-	/** The {@link #interval} variable that holds time announcing interval */
+	/** The {@link #interval} variable that holds time announcing interval(in minutes) */
 	private int interval;
 	
 	/** The {@link #message} variable that holds what message should be displayed */

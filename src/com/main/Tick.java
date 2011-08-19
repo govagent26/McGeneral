@@ -3,6 +3,11 @@ package com.main;
 import java.io.File;
 import java.util.Calendar;
 
+import com.main.HealthPlugin.Health;
+import com.main.HealthPlugin.HealthData;
+import com.main.TimePlugin.Time;
+import com.main.TimePlugin.TimeData;
+
 /**
  * The <b>Tick</b> class is used to schedule repeating tasks while the server is
  * running.
@@ -11,6 +16,12 @@ public class Tick extends Thread {
 	
 	/** The {@link #plugin} variable holds the instance of the <b>McGeneral</b> plugin */
 	private General plugin;
+	
+	/** The {@link #timeData} variable holds the class that stores all the time data */
+	private TimeData timeData;
+	
+	/** The {@link #healthData} variable holds the class that stores all the health data */
+	private HealthData healthData;
 	
 	/** The {@link #file} variable stores the datafolder for this plugin */
 	private File file;
@@ -28,10 +39,14 @@ public class Tick extends Thread {
 	 * 
 	 * @param plugin the plugin data for the <b>McGeneral</b> class
 	 * @param file the dataFolder for this plugin
+	 * @param timeData the <b>TimeData</b> class that holds the time settings from the yaml
+	 * @param healthData the <b>HealthData</b> class that holds the health settings from the yaml
 	 */
-	public Tick(General plugin, File file) {
+	public Tick(General plugin, File file, TimeData timeData, HealthData healthData) {
 		this.plugin = plugin;
 		this.file = file;
+		this.timeData = timeData;
+		this.healthData = healthData;
 		running = true;
 	}
 	
@@ -44,7 +59,17 @@ public class Tick extends Thread {
 		while (running) {
         	plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
         		public void run() {
+        			if (plugin.getServer().getOnlinePlayers().length > 0) {
+        				Calendar time = Calendar.getInstance();
+        				int second = time.get(Calendar.SECOND);
         			
+        				if (second == 0) {
+        					int minute = time.get(Calendar.MINUTE);
+        				
+        					Time.processTick(plugin, timeData, minute);
+        				}
+        				Health.processTick(plugin, healthData, second);
+        			}
         		}
         	});
         	try {

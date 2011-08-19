@@ -53,4 +53,19 @@ public class Time {
 			plugin.sendMessage(sender, theTime);
 		}
 	}
+	
+	/**
+	 * The {@link #processTick(General, TimeData, int)} method is called to check a time against
+	 * the time announcing interval. If the time is evenly divisible by the interval, then the
+	 * time is announced by calling the {@link #tellTime(General, TimeData)} method.
+	 * 
+	 * @param plugin the plugin data for the <b>McGeneral</b> class
+	 * @param timeData the <b>TimeData</b> class that holds the time settings from the yaml
+	 * @param minute the current minute to compare with the interval
+	 */
+	public static void processTick(General plugin, TimeData timeData, int minute) {
+		if (timeData.getAnnounceStatus() && ((minute % timeData.getInterval()) == 0)) {
+			tellTime(plugin, timeData);
+		}
+	}
 }

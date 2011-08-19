@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.main.AliasPlugin.AliasCommand; // Alias Plugin
 import com.main.AliasPlugin.AliasData; // "          "
 import com.main.EmotePlugin.EmoteCommand; // Emote Plugin
+import com.main.HealthPlugin.HealthData; // Health Plugin
 import com.main.PrefixPlugin.PrefixCommand; // Prefix Plugin
 import com.main.PrefixPlugin.PrefixData; // "          "
 import com.main.PvpPlugin.PvpCommand; // Pvp Plugin
@@ -40,6 +41,9 @@ public class General extends JavaPlugin {
 	
 	/** The {@link #timeData} variable holds the class that stores all the time data */
 	private TimeData timeData;
+	
+	/** The {@link #healthData} variable holds the class that stores all the health data */
+	private HealthData healthData;
 	
 	/** The {@link #aliasData} variable holds the class that stores all the alias data */
 	private AliasData aliasData;
@@ -81,7 +85,7 @@ public class General extends JavaPlugin {
 		getCommands();
 		
 		uptime = System.currentTimeMillis();
-		tick = new Tick(this, getDataFolder());
+		tick = new Tick(this, getDataFolder(), timeData, healthData);
 	}
 	
 	/**
@@ -94,7 +98,8 @@ public class General extends JavaPlugin {
 	 * <b>Second:</b> A new class is created for each data file to store data. Variables
 	 * that store external plugin data.
 	 * <br>
-	 * {@link #timeData}, {@link #aliasData}, {@link #prefixData},
+	 * {@link #timeData}, {@link #healthData}, {@link #aliasData}, {@link #prefixData},
+	 * {@link #pvpData}
 	 * <br>
 	 * <b>Lastly:</b> A message is logged to the command prompt to inform the
 	 * server owner that all data has been successfully loaded.
@@ -109,6 +114,7 @@ public class General extends JavaPlugin {
 			}
 		}
 		timeData = new TimeData(new McConfig(new File(file, "time-settings.yml")));
+		healthData = new HealthData(new McConfig(new File(file, "health-settings.yml")));
 		aliasData = new AliasData(this, new McConfig(new File(file, "alias-settings.yml")));
 		prefixData = new PrefixData(new McConfig(new File(file, "prefix-settings.yml")));
 		pvpData = new PvpData(new McConfig(new File(file, "pvp-settings.yml")));
@@ -137,7 +143,7 @@ public class General extends JavaPlugin {
 	 * Plugins with command handlers:
 	 * <br>
 	 * <b>AliasCommand</b>, <b>EmoteCommand</b>, <b>PrefixCommand</b>, <b>PvpCommand</b>,
-	 * <b>TimeCommand</b>, <b>WhoCommand</b>,
+	 * <b>RandomCommand</b>, <b>TimeCommand</b>, <b>UptimeCommand</b>, <b>WhoCommand</b>,
 	 */
 	private void getCommands() {
 		getCommand("alias").setExecutor(new AliasCommand(this, aliasData));
