@@ -41,7 +41,7 @@ public class PrefixData {
 	}
 	
 	/**
-	 * This {@link #readPrefixData(McConfig)} method is called when the data from the
+	 * This {@link #readPrefixData()} method is called when the data from the
 	 * external files needs to be read.
 	 * <p>
 	 * This method begins by retrieving a list of all players from the external yaml

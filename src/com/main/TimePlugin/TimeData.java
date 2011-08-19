@@ -43,10 +43,10 @@ public class TimeData {
 	}
 	
 	/**
-	 * This {@link #readTimeData(McConfig)} method is called when the data from the
-	 * external files needs to be read.
+	 * This {@link #readTimeData()} method is called when the data from the external 
+	 * files needs to be read.
 	 * <p>
-	 * Data is read from the external yaml file and stored in many variable in this 
+	 * Data is read from the external yaml file and stored in many variables in this 
 	 * class. It is stored here for easy future access when determining what the 
 	 * user settings are.
 	 * <p>

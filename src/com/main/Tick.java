@@ -70,7 +70,7 @@ public class Tick extends Thread {
 	 * The {@link #logErrors(Exception)} method is called to log exception errors from
 	 * this class to a specified file.
 	 * 
-	 * @param e the exception that occured
+	 * @param emessage the error message to be displayed
 	 */
 	private void logErrors(String emessage) {
 		String message = String.format("%1$tm-%1$td-%1$tY %1$tH %1$tM %1$tS : ", Calendar.getInstance());

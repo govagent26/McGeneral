@@ -2,8 +2,6 @@ package com.main.PrefixPlugin;
 
 import org.bukkit.entity.Player;
 
-import com.main.PrefixPlugin.PrefixData;
-
 /**
  * The <b>Prefix</b> class is called to register the prefix of a player or retrieve it
  * from the <b>PrefixData</b> class.

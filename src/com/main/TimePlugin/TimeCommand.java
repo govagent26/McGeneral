@@ -139,8 +139,12 @@ public class TimeCommand implements CommandExecutor {
 	 * @param args anything typed in after the original command
 	 */
 	private void ti(CommandSender sender, String[] args) {
-		if (args.length > 0) {
-			timeData.setInterval(Integer.parseInt(args[0]));
+		try {
+			if (args.length > 0) {
+				timeData.setInterval(Integer.parseInt(args[0]));
+			}
+		} catch (Exception e) {
+			
 		}
 		plugin.sendMessage(sender, "Time interval is every " + timeData.getInterval() + " minutes.");
 	}
@@ -184,8 +188,12 @@ public class TimeCommand implements CommandExecutor {
 	 * @param args anything typed in after the original command
 	 */
 	private void tf(CommandSender sender, String[] args) {
-		if (args.length > 0) {
-			timeData.setFormat(Integer.parseInt(args[0]));
+		try {
+			if (args.length > 0) {
+				timeData.setFormat(Integer.parseInt(args[0]));
+			}
+		} catch (Exception e) {
+			
 		}
 		plugin.sendMessage(sender, "Time format is " + timeData.getFormat() + " hours.");
 	}

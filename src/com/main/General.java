@@ -19,6 +19,9 @@ import com.main.AliasPlugin.AliasData; // "          "
 import com.main.EmotePlugin.EmoteCommand; // Emote Plugin
 import com.main.PrefixPlugin.PrefixCommand; // Prefix Plugin
 import com.main.PrefixPlugin.PrefixData; // "          "
+import com.main.PvpPlugin.PvpCommand; // Pvp Plugin
+import com.main.PvpPlugin.PvpData; // "          "
+import com.main.RandomPlugin.RandomCommand; // Random Plugin
 import com.main.TimePlugin.TimeCommand; // Time Plugin
 import com.main.TimePlugin.TimeData; // "          "
 import com.main.Uptime.Uptime; // Uptime Plugin
@@ -44,6 +47,9 @@ public class General extends JavaPlugin {
 	/** The {@link #prefixData} variable holds the class that stores all the prefix data */
 	private PrefixData prefixData;
 	
+	/** The {@link #pvpData} variable holds the class that stores all the pvp data */
+	private PvpData pvpData;
+	
 	/** The {@link #uptime} variable holds the time when the server was started */
 	private long uptime;
 	
@@ -58,7 +64,7 @@ public class General extends JavaPlugin {
 	 */
 	@Override
 	public void onDisable() {
-		Uptime.storeUptime(getDataFolder(), uptime);
+		Uptime.storeUptimeData(getDataFolder(), uptime);
 		tick.setRunning(false);
 	}
 
@@ -105,6 +111,7 @@ public class General extends JavaPlugin {
 		timeData = new TimeData(new McConfig(new File(file, "time-settings.yml")));
 		aliasData = new AliasData(this, new McConfig(new File(file, "alias-settings.yml")));
 		prefixData = new PrefixData(new McConfig(new File(file, "prefix-settings.yml")));
+		pvpData = new PvpData(new McConfig(new File(file, "pvp-settings.yml")));
 		log.info("[McGeneral]: All data has been loaded from the data files");
 	}
 	
@@ -114,7 +121,7 @@ public class General extends JavaPlugin {
 	 *  event listeners, and <b>weather</b> event listeners.
 	 */
 	private void registerEvents() {
-		PlayerListener pL = new McPlayerListener(this, aliasData, prefixData);
+		PlayerListener pL = new McPlayerListener(this, aliasData, prefixData, pvpData);
 		
 		PluginManager pm = getServer().getPluginManager();
     	
@@ -129,13 +136,15 @@ public class General extends JavaPlugin {
 	 * <br>
 	 * Plugins with command handlers:
 	 * <br>
-	 * <b>AliasCommand</b>, <b>EmoteCommand</b>, <b>PrefixCommand</b>,<b>TimeCommand</b>,
-	 * <b>WhoCommand</b>,
+	 * <b>AliasCommand</b>, <b>EmoteCommand</b>, <b>PrefixCommand</b>, <b>PvpCommand</b>,
+	 * <b>TimeCommand</b>, <b>WhoCommand</b>,
 	 */
 	private void getCommands() {
 		getCommand("alias").setExecutor(new AliasCommand(this, aliasData));
 		getCommand("emote").setExecutor(new EmoteCommand(this));
 		getCommand("prefix").setExecutor(new PrefixCommand(this, prefixData));
+		getCommand("pvp").setExecutor(new PvpCommand(this, pvpData));
+		getCommand("random").setExecutor(new RandomCommand(this));
 		getCommand("time").setExecutor(new TimeCommand(this, timeData));
 		getCommand("uptime").setExecutor(new UptimeCommand(this, uptime));
 		getCommand("who").setExecutor(new WhoCommand(this));

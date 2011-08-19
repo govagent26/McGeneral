@@ -1,6 +1,7 @@
 package com.main.Uptime;
 
 import java.io.File;
+import java.util.Calendar;
 
 import org.bukkit.command.CommandSender;
 
@@ -32,8 +33,9 @@ public class Uptime {
 	 * @param file the dataFolder for this plugin
 	 * @param uptime the time when this plugin was initialized(when the server was started)
 	 */
-	public static void storeUptime(File file, long uptime) {
-		FileUtil.writeFile(new File(file, "uptime-storage.txt"), "Server ran for: " + getUptime(uptime));
+	public static void storeUptimeData(File file, long uptime) {
+		String message = String.format(" on %1$tm-%1$td-%1$tY %1$tH %1$tM...........", Calendar.getInstance());
+		FileUtil.writeFile(new File(file, "uptime-storage.txt"), "Server ran for: " + getUptime(uptime) + message);
 	}
 	
 	/**

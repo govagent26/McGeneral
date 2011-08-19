@@ -46,7 +46,7 @@ public class AliasData {
 	}
 	
 	/**
-	 * This {@link #readAliasData(McConfig)} method is called when the data from the
+	 * This {@link #readAliasData()} method is called when the data from the
 	 * external files needs to be read.
 	 * <p>
 	 * This method begins by retrieving a list of all players from the external yaml

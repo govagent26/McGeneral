@@ -5,6 +5,8 @@ Included mods:
 -Emote Mod: Allows the use of emotes(chatting to only players in a short radius).
 -Health Mod: Adds a player's health to chat in the form of a fraction with colors.
 -Prefix Mod: Adds a prefix to a player when chatting.
+-Pvp Mod: allows player's to set individual pvp status.
+-Random Mod: sends a randomized number to the sender.
 -Time Mod: Can announce the time to the server or individual player on command.	
 -Uptime Mod: stores the uptime of the server.
 -Who Mod: Lists all online players.

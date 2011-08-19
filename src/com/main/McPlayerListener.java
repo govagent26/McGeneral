@@ -10,6 +10,8 @@ import com.main.AliasPlugin.AliasData;
 import com.main.HealthPlugin.Health;
 import com.main.PrefixPlugin.Prefix;
 import com.main.PrefixPlugin.PrefixData;
+import com.main.PvpPlugin.Pvp;
+import com.main.PvpPlugin.PvpData;
 
 /**
  * The <b>McPlayerListener</b> class is used to handle all registered <b>player
@@ -26,6 +28,9 @@ public class McPlayerListener extends PlayerListener {
 	/** The {@link #prefixData} variable holds the class that stores all the prefix data */
 	private PrefixData prefixData;
 	
+	/** The {@link #pvpData} variable holds the class that stores all the pvp data */
+	private PvpData pvpData;
+	
 	/**
 	 * The {@link #McPlayerListener(General plugin)} constructor is called to
 	 * transfer the {@link #plugin} data to this class.
@@ -33,10 +38,11 @@ public class McPlayerListener extends PlayerListener {
 	 * @param plugin the instance of the <b>McGeneral</b> plugin
 	 * @param aliasData the <b>AliasData</b> class that holds the alias data from the yaml
 	 */
-	public McPlayerListener(General plugin, AliasData aliasData, PrefixData prefixData) {
+	public McPlayerListener(General plugin, AliasData aliasData, PrefixData prefixData, PvpData pvpData) {
 		this.plugin = plugin;
 		this.aliasData = aliasData;
 		this.prefixData = prefixData;
+		this.pvpData = pvpData;
 	}
 	
 	/**
@@ -53,6 +59,7 @@ public class McPlayerListener extends PlayerListener {
 		Player player = event.getPlayer();
 		
 		Alias.setDisplayName(player, aliasData);
+		Pvp.setPvp(player, pvpData);
 	}
 	
 	public void onPlayerChat(PlayerChatEvent event) {

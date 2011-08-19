@@ -1,6 +1,6 @@
 name: McGeneral
 main: com.main.General
-version: 0.0.11
+version: 0.0.12
 author: govagent26
 database: false
 description: McGeneral is a combination of many bukkit plugins.
@@ -35,7 +35,22 @@ commands:
            pr- reloads the prefix data from the yaml file
            ph- prefix help, shows all prefix commands to sender
            Only in-game players may use the prefix commands
-
+  pvp:
+    aliases: [v, vc, vcd, vr, vh]
+    description: changes a players pvp status.
+    usage: >
+           pvp/v- shows the player's pvp status
+           vc- shows the player's pvp cooldown
+           vs- switches a player's pvp status
+           vr- reloads the pvp data from the yaml file
+           vh- pvp help, shows all pvp commands to sender
+           Only in-game players may use the pvp commands
+  random:
+    aliases: r
+    description: changes a players pvp status.
+    usage: >
+           random/r- prints a number between 0 and 100(default)
+           random/r (num)- prints a number between 0 and (num)
   time:
     aliases: [t, ta, ti, tm, tf, tr, th]
     description: can retrieve time and display to sender.
@@ -48,7 +63,7 @@ commands:
            tm- displays the time message
            tm (message)- changes message to (message)
            tf- displays the time format
-           tf 12/24- changes format to 12 or 24 hours
+           tf (12/24)- changes format to 12 or 24 hours
            tr- reloads time data from the yaml file
            th- time help, shows all time commands to sender
   uptime:
