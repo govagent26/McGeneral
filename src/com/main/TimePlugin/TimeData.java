@@ -168,7 +168,7 @@ public class TimeData {
 	}
 	
 	/**
-	 * The {@link #checkInterval()} method is called to chekc to make sure that
+	 * The {@link #checkInterval()} method is called to check to make sure that
 	 * the time interval is within bounds. If it is greater than 60 or less than
 	 * 1, then the {@link #interval} variable is assigned the value of 15.
 	 * 

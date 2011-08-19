@@ -58,7 +58,7 @@ public class Health {
 	 * @param second the current second to compare with the interval
 	 */
 	public static void processTick(General plugin, HealthData healthData, int second) {
-		if (second % healthData.getInterval() == 0) {
+		if (healthData.getAnnouncing() && second % healthData.getInterval() == 0) {
 			Player[] players = plugin.getServer().getOnlinePlayers();
 			int health = healthData.getAmmount();
 			

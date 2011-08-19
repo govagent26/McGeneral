@@ -13,11 +13,14 @@ import com.main.McConfig;
 public class HealthData {
 	
 	/** The {@link #nodes} variable holds the stings for accessing the data file nodes */
-	private String[] nodes = {"health.near-death.ammount", "health.near-death.interval",
-			"health.near-death.messages"};
+	private String[] nodes = {"health.near-death.announcing", "health.near-death.ammount",
+			"health.near-death.interval", "health.near-death.messages"};
 	
 	/** The {@link #config} variable is used to access the <b>Config</b> class */
 	private McConfig config;
+	
+	/** The {@link #announcing} variable that holds whether or not to announce the messages */
+	private boolean announcing;
 	
 	/** The {@link #ammount} variable that holds at what health to announce near death messages */
 	private int ammount;
@@ -56,11 +59,23 @@ public class HealthData {
 	 */
 	public void readHealthData() {
 		config.load();
-		ammount = config.getInt(nodes[0], 2);
-		interval = config.getInt(nodes[1], 10);
-		messages = config.getStringList(nodes[2], new ArrayList<String>());
+		announcing = config.getBoolean(nodes[0], true);
+		ammount = config.getInt(nodes[1], 2);
+		interval = config.getInt(nodes[2], 10);
+		messages = config.getStringList(nodes[3], new ArrayList<String>());
 		config.save();
+		checkInterval();
 		checkMessages();
+	}
+	
+	/**
+	 * The {@link #announce} method is called to retrieve whether or not to announce
+	 * near death messages.
+	 * 
+	 * @return whether or not to announce near get messages
+	 */
+	public boolean getAnnouncing() {
+		return announcing;
 	}
 	
 	/**
@@ -96,13 +111,32 @@ public class HealthData {
 	}
 	
 	/**
+	 * The {@link #checkInterval()} method is called to check to make sure that
+	 * the time interval is within bounds. If it is greater than 60 or less than
+	 * 1, then the {@link #interval} variable is assigned the value of 10.
+	 * 
+	 * @return true if the interval value is appropriate, otherwise false
+	 */
+	private boolean checkInterval() {
+		if (interval > 60 || interval < 1) {
+			this.interval = 10;
+			return false;
+		}
+		return true;
+	}
+	
+	/**
 	 * The {@link #checkMessages()} method is called to make sure that the {@link #messages}
 	 * variable is populated with at least one message to display. If it is empty, then a
 	 * default message is placed in it.
+	 * 
+	 * @return true if messages is populated, otherwise false
 	 */
-	private void checkMessages() {
+	private boolean checkMessages() {
 		if (messages.size() == 0) {
 			messages.add("I'm Dying....");
+			return false;
 		}
+		return true;
 	}
 } 
