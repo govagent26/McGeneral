@@ -23,7 +23,7 @@ public class PvpInfoData {
 	}
 	
 	/**
-	 * The {@link #switchPvp()} method is called to switch the current player's pvp
+	 * The {@link #switchPvp()} method switches the current player's pvp
 	 * status.
 	 */
 	public void switchPvp() {
@@ -31,7 +31,7 @@ public class PvpInfoData {
 	}
 	
 	/**
-	 * The {@link #getPvp()} method is called to retrieve the current player's pvp
+	 * The {@link #getPvp()} method retrieves the current player's pvp
 	 * status.
 	 * 
 	 * @return true if pvp is enabled, otherwise false
@@ -41,7 +41,7 @@ public class PvpInfoData {
 	}
 	
 	/**
-	 * The {@link #setPvp(boolean)} method is called to set the current player's pvp
+	 * The {@link #setPvp(boolean)} method sets the current player's pvp
 	 * status.
 	 * 
 	 * @param pvp the player's pvp status
@@ -51,7 +51,7 @@ public class PvpInfoData {
 	}
 	
 	/**
-	 * The {@link #getCooldown()} method is called to retrieve the current player's
+	 * The {@link #getCooldown()} method retrieves the current player's
 	 * cooldown.
 	 * 
 	 * @return the cooldown
@@ -61,7 +61,7 @@ public class PvpInfoData {
 	}
 	
 	/**
-	 * The {@link #setCooldown(long)} method is called to set the current player's
+	 * The {@link #setCooldown(long)} method sets the current player's
 	 * cooldown.
 	 * 
 	 * @param cooldown the cooldown to set

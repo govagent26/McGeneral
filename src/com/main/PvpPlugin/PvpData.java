@@ -75,7 +75,7 @@ public class PvpData {
 	}
 	
 	/**
-	 * The {@link #switchPvpStatus(Player)} method is called to switch the player's pvp
+	 * The {@link #switchPvpStatus(Player)} method switches the player's pvp
 	 * status.
 	 * 
 	 * @param player the player whose pvp status is being switched
@@ -86,7 +86,7 @@ public class PvpData {
 	}
 	
 	/**
-	 * The {@link #getPvpStatus(Player)} method is called to retrieve the pvp status of
+	 * The {@link #getPvpStatus(Player)} method retrieves the pvp status of
 	 * the player.
 	 * 
 	 * @param player the player whose pvp status is being retrieved
@@ -97,7 +97,7 @@ public class PvpData {
 	}
 	
 	/**
-	 * The {@link #setPvpStatus(Player, boolean)} method is called to set the pvp status
+	 * The {@link #setPvpStatus(Player, boolean)} method sets the pvp status
 	 * of the player.
 	 * 
 	 * @param player the player whose pvp status is being changed
@@ -109,7 +109,7 @@ public class PvpData {
 	}
 
 	/**
-	 * The {@link #getPvpCooldown(Player)} method is called to retrieve the time when the
+	 * The {@link #getPvpCooldown(Player)} method retrieves the time when the
 	 * player's cooldown is finished.
 	 * 
 	 * @param player the player whose pvp cooldown is being retrieved
@@ -120,7 +120,7 @@ public class PvpData {
 	}
 	
 	/**
-	 * The {@link #setPvpCooldown(Player, boolean)} method is called to set the player's
+	 * The {@link #setPvpCooldown(Player, boolean)} method sets the player's
 	 * pvp cooldown.
 	 * 
 	 * @param player the player whose pvp cooldown is being retrieved

@@ -3,10 +3,12 @@ McGeneral is a vast collection of different mods used by the Bukkit multiplayer 
 Included mods:
 -Alias Mod: Changes a player's display name and its color.
 -Emote Mod: Allows the use of emotes(chatting to only players in a short radius).
--Health Mod: Adds a player's health to chat in the form of a fraction with colors.
+-Health Chat Mod: Adds a player's health to chat in the form of a fraction with colors.
+-Near Death Mod: Sends message to dying players at a certain interval.
 -Prefix Mod: Adds a prefix to a player when chatting.
 -Pvp Mod: allows player's to set individual pvp status.
 -Random Mod: sends a randomized number to the sender.
+-Save Backup Mod: creates backups of the world data at set intervals.
 -Time Mod: Can announce the time to the server or individual player on command.	
 -Uptime Mod: stores the uptime of the server.
 -Who Mod: Lists all online players.

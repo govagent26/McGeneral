@@ -119,8 +119,8 @@ public class AliasData {
 	}
 	
 	/**
-	 * The {@link #getAlias(Player)} method is called to retrieve the alias of the
-	 * player without color.
+	 * The {@link #getAlias(Player)} method retrieves the alias of the player without
+	 * color.
 	 * 
 	 * @param player the player whose alias is being retrieved
 	 * @return the alias of the player(without color)
@@ -148,8 +148,8 @@ public class AliasData {
 	}
 	
 	/**
-	 * The {@link #getColor(Player)} method is called to retrieve the color of the
-	 * player from the {@link #displaynames} list.
+	 * The {@link #getColor(Player)} method retrieves the color of the player from the
+	 * {@link #displaynames} list.
 	 * 
 	 * @param player the player whose color is being retrieved
 	 * @return the color of the player

@@ -3,8 +3,8 @@ package com.main;
 import java.io.File;
 import java.util.Calendar;
 
-import com.main.HealthPlugin.Health;
-import com.main.HealthPlugin.HealthData;
+import com.main.NearDeathPlugin.NearDeath;
+import com.main.NearDeathPlugin.NearDeathData;
 import com.main.TimePlugin.Time;
 import com.main.TimePlugin.TimeData;
 
@@ -20,8 +20,8 @@ public class Tick extends Thread {
 	/** The {@link #timeData} variable holds the class that stores all the time data */
 	private TimeData timeData;
 	
-	/** The {@link #healthData} variable holds the class that stores all the health data */
-	private HealthData healthData;
+	/** The {@link #neardeathData} variable holds the class that stores all the near death data */
+	private NearDeathData neardeathData;
 	
 	/** The {@link #file} variable stores the datafolder for this plugin */
 	private File file;
@@ -40,13 +40,13 @@ public class Tick extends Thread {
 	 * @param plugin the plugin data for the <b>McGeneral</b> class
 	 * @param file the dataFolder for this plugin
 	 * @param timeData the <b>TimeData</b> class that holds the time settings from the yaml
-	 * @param healthData the <b>HealthData</b> class that holds the health settings from the yaml
+	 * @param neardeathData the <b>NearDeathData</b> class that holds the health settings from the yaml
 	 */
-	public Tick(General plugin, File file, TimeData timeData, HealthData healthData) {
+	public Tick(General plugin, File file, TimeData timeData, NearDeathData neardeathData) {
 		this.plugin = plugin;
 		this.file = file;
 		this.timeData = timeData;
-		this.healthData = healthData;
+		this.neardeathData = neardeathData;
 		running = true;
 	}
 	
@@ -68,7 +68,7 @@ public class Tick extends Thread {
         				
         					Time.processTick(plugin, timeData, minute);
         				}
-        				Health.processTick(plugin, healthData, second);
+        				NearDeath.processTick(plugin, neardeathData, second);
         			}
         		}
         	});

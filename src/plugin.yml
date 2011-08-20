@@ -1,6 +1,6 @@
 name: McGeneral
 main: com.main.General
-version: 0.0.12
+version: 0.0.17
 author: govagent26
 database: false
 description: McGeneral is a combination of many bukkit plugins.
@@ -23,6 +23,11 @@ commands:
     usage: >
            emote/me/e- sends an emote to players
            Only in-game players may use the emote command
+  neardeath:
+    aliases: [nd, nds]
+    description: changes near death announcement settings.
+    usage: >
+           neardeath/nd- lists all messages to sender
   prefix:
     aliases: [p, pc, pn, pr, ph]
     description: changes a players prefix.

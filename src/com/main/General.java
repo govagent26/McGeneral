@@ -17,7 +17,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.main.AliasPlugin.AliasCommand; // Alias Plugin
 import com.main.AliasPlugin.AliasData; // "          "
 import com.main.EmotePlugin.EmoteCommand; // Emote Plugin
-import com.main.HealthPlugin.HealthData; // Health Plugin
+import com.main.NearDeathPlugin.NearDeathCommand; // Near Death Plugin
+import com.main.NearDeathPlugin.NearDeathData; // "          "
 import com.main.PrefixPlugin.PrefixCommand; // Prefix Plugin
 import com.main.PrefixPlugin.PrefixData; // "          "
 import com.main.PvpPlugin.PvpCommand; // Pvp Plugin
@@ -42,8 +43,8 @@ public class General extends JavaPlugin {
 	/** The {@link #timeData} variable holds the class that stores all the time data */
 	private TimeData timeData;
 	
-	/** The {@link #healthData} variable holds the class that stores all the health data */
-	private HealthData healthData;
+	/** The {@link #neardeathData} variable holds the class that stores all the near death data */
+	private NearDeathData neardeathData;
 	
 	/** The {@link #aliasData} variable holds the class that stores all the alias data */
 	private AliasData aliasData;
@@ -85,7 +86,7 @@ public class General extends JavaPlugin {
 		getCommands();
 		
 		uptime = System.currentTimeMillis();
-		tick = new Tick(this, getDataFolder(), timeData, healthData);
+		tick = new Tick(this, getDataFolder(), timeData, neardeathData);
 	}
 	
 	/**
@@ -98,7 +99,7 @@ public class General extends JavaPlugin {
 	 * <b>Second:</b> A new class is created for each data file to store data. Variables
 	 * that store external plugin data.
 	 * <br>
-	 * {@link #timeData}, {@link #healthData}, {@link #aliasData}, {@link #prefixData},
+	 * {@link #timeData}, {@link #neardeathData}, {@link #aliasData}, {@link #prefixData},
 	 * {@link #pvpData}
 	 * <br>
 	 * <b>Lastly:</b> A message is logged to the command prompt to inform the
@@ -114,7 +115,7 @@ public class General extends JavaPlugin {
 			}
 		}
 		timeData = new TimeData(new McConfig(new File(file, "time-settings.yml")));
-		healthData = new HealthData(new McConfig(new File(file, "health-settings.yml")));
+		neardeathData = new NearDeathData(new McConfig(new File(file, "neardeath-settings.yml")));
 		aliasData = new AliasData(this, new McConfig(new File(file, "alias-settings.yml")));
 		prefixData = new PrefixData(new McConfig(new File(file, "prefix-settings.yml")));
 		pvpData = new PvpData(new McConfig(new File(file, "pvp-settings.yml")));
@@ -142,12 +143,14 @@ public class General extends JavaPlugin {
 	 * <br>
 	 * Plugins with command handlers:
 	 * <br>
-	 * <b>AliasCommand</b>, <b>EmoteCommand</b>, <b>PrefixCommand</b>, <b>PvpCommand</b>,
-	 * <b>RandomCommand</b>, <b>TimeCommand</b>, <b>UptimeCommand</b>, <b>WhoCommand</b>,
+	 * <b>AliasCommand</b>, <b>EmoteCommand</b>, <b>NearDeathCommand</b>, 
+	 * <b>PrefixCommand</b>, <b>PvpCommand</b>, <b>RandomCommand</b>, <b>TimeCommand</b>, 
+	 * <b>UptimeCommand</b>, <b>WhoCommand</b>,
 	 */
 	private void getCommands() {
 		getCommand("alias").setExecutor(new AliasCommand(this, aliasData));
 		getCommand("emote").setExecutor(new EmoteCommand(this));
+		getCommand("neardeath").setExecutor(new NearDeathCommand(this, neardeathData));
 		getCommand("prefix").setExecutor(new PrefixCommand(this, prefixData));
 		getCommand("pvp").setExecutor(new PvpCommand(this, pvpData));
 		getCommand("random").setExecutor(new RandomCommand(this));
@@ -157,16 +160,29 @@ public class General extends JavaPlugin {
 	}
 	
 	/**
+	 * The {@link #sendMessage(String)} method is called to log a message to the console.
+	 * 
+	 * @param message the message to be logged
+	 * @see #sendMessage(CommandSender, String)
+	 * @see #sendMessage(Player, String)
+	 * @see #sendMessage(Player, String, int)
+	 */
+	public void sendMessage(String message) {
+		log.info(message);
+	}
+	
+	/**
 	 * The {@link #sendMessage(CommandSender, String)} method is called to send a message
 	 * to an individual sender.
 	 * <p>
 	 * This method attempts to find out who the sender is. If it is a player, then the
 	 * {@link #sendMessage(Player, String)} method is called to see the message.
 	 * Otherwise, the sender is assumed to be the command prompt and thus the message is
-	 * logged to the console.
+	 * logged to the console by calling the {@link #sendMessage(String)} method.
 	 * 
 	 * @param sender the sender to display the message to
 	 * @param message the message to be displayed to the sender
+	 * @see #sendMessage(String)
 	 * @see #sendMessage(Player, String)
 	 * @see #sendMessage(Player, String, int)
 	 */
@@ -174,7 +190,7 @@ public class General extends JavaPlugin {
 		if (sender instanceof Player) {
 			sendMessage((Player)sender, message);
 		} else {
-			log.info(message);
+			sendMessage(message);
 		}
 	}
 	
@@ -184,6 +200,7 @@ public class General extends JavaPlugin {
 	 * 
 	 * @param player the player to display the message to
 	 * @param message the message to be displayed
+	 * @see #sendMessage(String)
 	 * @see #sendMessage(CommandSender, String)
 	 * @see #sendMessage(Player, String, int)
 	 */
@@ -202,6 +219,7 @@ public class General extends JavaPlugin {
 	 * @param player the player to calculate the radius around and send a message to
 	 * @param message the message to send to all players within the radius
 	 * @param radius the distance to check for additional players
+	 * @see #sendMessage(String)
 	 * @see #sendMessage(CommandSender, String)
 	 * @see #sendMessage(Player, String)
 	 */
@@ -232,8 +250,9 @@ public class General extends JavaPlugin {
 	 * players on the server and possibly to the console.
 	 * <p>
 	 * If <b>value</b> is true, then the message is logged to the console in addition to
-	 * being sent to all players. This method called the {@link #broadcast(String)}
-	 * method to send the message to all players.
+	 * being sent to all players by calling the {@link #sendMessage(String)} method. This
+	 * method called the {@link #broadcast(String)} method to send the message to all 
+	 * players.
 	 * 
 	 * @param message the message to be broadcasted
 	 * @param value whether or not to log the message to the console
@@ -241,7 +260,7 @@ public class General extends JavaPlugin {
 	 */
 	public void broadcast(String message, boolean value) {
 		if (value) {
-			log.info(message);
+			sendMessage(message);
 		}
 		broadcast(message);
 	}

@@ -30,8 +30,7 @@ public class AliasInfoData {
 	}
 	
 	/**
-	 * The {@link #getColor()} method is called to retrieve the color of the display
-	 * name.
+	 * The {@link #getColor()} method retrieves the color of the display name.
 	 * 
 	 * @return the display name color
 	 */
@@ -40,8 +39,7 @@ public class AliasInfoData {
 	}
 	
 	/**
-	 * The {@link #setColor(ChatColor)} method is called to change the color of the
-	 * display name.
+	 * The {@link #setColor(ChatColor)} method changes the color of the display name.
 	 * 
 	 * @param color what the display name color is being changed to
 	 */
@@ -50,8 +48,7 @@ public class AliasInfoData {
 	}
 	
 	/**
-	 * The {@link #getAlias()} method is called to retrieve the alias of the display
-	 * name.
+	 * The {@link #getAlias()} method retrieves the alias of the display name.
 	 * 
 	 * @return the display name without color
 	 */
@@ -60,8 +57,7 @@ public class AliasInfoData {
 	}
 	
 	/**
-	 * The {@link #setAlias(String)} method is called to change the alias of the
-	 * display name.
+	 * The {@link #setAlias(String)} method changes the alias of the display name.
 	 * 
 	 * @param alias what the display name is being changed to(without color)
 	 */
@@ -70,8 +66,8 @@ public class AliasInfoData {
 	}
 	
 	/**
-	 * The {@link #getDisplayName()} method is called to retrieve a player's display
-	 * name. This method combines the {@link #chatcolor} and {@link #alias} variables
+	 * The {@link #getDisplayName()} method retrieves a player's display name. This
+	 * method combines the {@link #chatcolor} and {@link #alias} variables
 	 * together to create the display name.
 	 * 
 	 * @return the display name of the player(name with color)

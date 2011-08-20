@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerListener;
 
 import com.main.AliasPlugin.Alias;
 import com.main.AliasPlugin.AliasData;
-import com.main.HealthPlugin.Health;
+import com.main.HealthChatPlugin.HealthChat;
 import com.main.PrefixPlugin.Prefix;
 import com.main.PrefixPlugin.PrefixData;
 import com.main.PvpPlugin.Pvp;
@@ -67,6 +67,6 @@ public class McPlayerListener extends PlayerListener {
 		String prefix = Prefix.getPrefix(player, prefixData);
 		
 		event.setFormat((prefix == null ? "" : prefix) + event.getFormat());
-		event.setMessage(Health.getHealthChat(player) + event.getMessage());
+		event.setMessage(HealthChat.getHealthChat(player) + event.getMessage());
 	}
 } 

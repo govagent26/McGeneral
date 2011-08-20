@@ -102,7 +102,7 @@ public class PrefixData {
 	}
 	
 	/**
-	 * The {@link #getPrefix(Player)} method is called to retrieve the prefix of the
+	 * The {@link #getPrefix(Player)} method retrieves the prefix of the
 	 * player without color.
 	 * 
 	 * @param player the player whose prefix is being retrieved
@@ -129,7 +129,7 @@ public class PrefixData {
 	}
 	
 	/**
-	 * The {@link #getColor(Player)} method is called to retrieve the color of the
+	 * The {@link #getColor(Player)} method retrieves the color of the
 	 * player from the {@link #prefixes} list.
 	 * 
 	 * @param player the player whose color is being retrieved
@@ -163,7 +163,7 @@ public class PrefixData {
 	}
 	
 	/**
-	 * The {@link #getPrefixWithColor(Player)} method is called to retrieve a player's
+	 * The {@link #getPrefixWithColor(Player)} method retrieves a player's
 	 * prefix. If none has been entered, then null is returned. Otherwise the
 	 * prefix(including color) is returned.
 	 * 

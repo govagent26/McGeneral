@@ -30,7 +30,7 @@ public class PrefixInfoData {
 	}
 	
 	/**
-	 * The {@link #getColor()} method is called to retrieve the color of the prefix.
+	 * The {@link #getColor()} method retrieves the color of the prefix.
 	 * 
 	 * @return the prefix color
 	 */
@@ -39,7 +39,7 @@ public class PrefixInfoData {
 	}
 	
 	/**
-	 * The {@link #setColor(ChatColor)} method is called to change the color of the
+	 * The {@link #setColor(ChatColor)} method changes the color of the
 	 * prefix.
 	 * 
 	 * @param color what the prefix color is being changed to
@@ -49,7 +49,7 @@ public class PrefixInfoData {
 	}
 	
 	/**
-	 * The {@link #getPrefix()} method is called to retrieve the prefix without color.
+	 * The {@link #getPrefix()} method retrieves the prefix without color.
 	 * 
 	 * @return the prefix without color
 	 */
@@ -58,7 +58,7 @@ public class PrefixInfoData {
 	}
 	
 	/**
-	 * The {@link #setPrefix(String)} method is called to change the prefix.
+	 * The {@link #setPrefix(String)} method changes the prefix.
 	 * 
 	 * @param prefix what the prefix is being changed to
 	 */
@@ -67,7 +67,7 @@ public class PrefixInfoData {
 	}
 	
 	/**
-	 * The {@link #getPrefixWithColor()} method is called to retrieve a player's
+	 * The {@link #getPrefixWithColor()} method retrieves a player's 
 	 * prefix(includes color). This method combines the {@link #chatcolor} and 
 	 * {@link #prefix} variables together to create the prefix.
 	 * 
