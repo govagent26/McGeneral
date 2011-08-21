@@ -7,7 +7,7 @@ import java.util.List;
 import org.bukkit.World;
 import org.bukkit.command.ConsoleCommandSender;
 
-import com.main.FileUtil;
+import com.main.McFileUtil;
 import com.main.General;
 
 /**
@@ -21,7 +21,7 @@ public class SaveBackup {
 	 * 
 	 * @param plugin the plugin data for the <b>McGeneral</b> class
 	 */
-    public void saveWithBackups(General plugin) {
+    public static void saveWithBackups(General plugin) {
     	ConsoleCommandSender ccs = new ConsoleCommandSender(plugin.getServer());
     	List<World> worlds = plugin.getServer().getWorlds();
     	String date = String.format(" - %1$tm-%1$td-%1$tY %1$tH %1$tM %1$tS", Calendar.getInstance());
@@ -32,13 +32,28 @@ public class SaveBackup {
     		
         	for (World world : worlds) {
                 world.save();
-                FileUtil.copyDirectory(new File(world.getName()), new File("backups", (world.getName() + date)));
+                McFileUtil.copyDirectory(new File(world.getName()), new File("backups", (world.getName() + date)));
             }
-        	plugin.sendMessage("[McGeneral]: has successfully backed up all world data.");
+        	plugin.broadcast("[McGeneral]: has successfully backed up all world data.", true);
         } catch (Exception e) {
         	plugin.sendMessage("[McGeneral]: Error occured during backup saving process.");
         } finally {
         	plugin.getServer().dispatchCommand(ccs, "save-on");
         }
     }
+    
+	/**
+	 * The {@link #processTick(General, SaveBackupData, int)} method is called to check a time against
+	 * the save backup interval. If the time is evenly divisible by the interval, then all world
+	 * data is saved by calling the {@link #saveWithBackups(General)} method.
+	 * 
+	 * @param plugin the plugin data for the <b>McGeneral</b> class
+	 * @param savebackupData the <b>SaveBackupData</b> class that holds the save backup settings from the yaml
+	 * @param minute the current minute to compare with the interval
+	 */
+	public static void processTick(General plugin, SaveBackupData savebackupData, int minute) {
+		if (savebackupData.isActivated() && ((minute % savebackupData.getInterval()) == 0)) {
+			saveWithBackups(plugin);
+		}
+	}
 }

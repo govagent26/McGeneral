@@ -35,8 +35,8 @@ public class RandomCommand implements CommandExecutor {
 	 * The {@link #onCommand(CommandSender, Command, String, String[])} method is used to
 	 * send a randomized number to the sender.
 	 * 
-	 * @param sender the sender who entered the time command
-	 * @param command the overhead command that was entered(always 'prefix')
+	 * @param sender the sender who entered the random command
+	 * @param command the overhead command that was entered(always 'random')
 	 * @param label the command actually typed in by the sender
 	 * @param args anything typed in after the original command
 	 * @return true if the entered command is valid, otherwise false

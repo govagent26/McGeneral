@@ -53,8 +53,8 @@ public class PvpCommand implements CommandExecutor {
 	 * If <b>'vh'</b> is entered, the usage data from the <b>plugin.yml</b> file is shown
 	 * to the sender.
 	 * 
-	 * @param sender the sender who entered the time command
-	 * @param command the overhead command that was entered(always 'prefix')
+	 * @param sender the sender who entered the pvp command
+	 * @param command the overhead command that was entered(always 'pvp')
 	 * @param label the command actually typed in by the sender
 	 * @param args anything typed in after the original command
 	 * @return true if the entered command is valid, otherwise false

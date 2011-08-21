@@ -5,6 +5,8 @@ import java.util.Calendar;
 
 import com.main.NearDeathPlugin.NearDeath;
 import com.main.NearDeathPlugin.NearDeathData;
+import com.main.SaveBackupPlugin.SaveBackup;
+import com.main.SaveBackupPlugin.SaveBackupData;
 import com.main.TimePlugin.Time;
 import com.main.TimePlugin.TimeData;
 
@@ -22,6 +24,9 @@ public class Tick extends Thread {
 	
 	/** The {@link #neardeathData} variable holds the class that stores all the near death data */
 	private NearDeathData neardeathData;
+	
+	/** The {@link #savebackupData} variable holds the class that stores all the save backup data */
+	private SaveBackupData savebackupData;
 	
 	/** The {@link #file} variable stores the datafolder for this plugin */
 	private File file;
@@ -41,12 +46,14 @@ public class Tick extends Thread {
 	 * @param file the dataFolder for this plugin
 	 * @param timeData the <b>TimeData</b> class that holds the time settings from the yaml
 	 * @param neardeathData the <b>NearDeathData</b> class that holds the health settings from the yaml
+	 * @param savebackupData the <b>SaveBackupData</b> class that holds the save backup settings from the yaml
 	 */
-	public Tick(General plugin, File file, TimeData timeData, NearDeathData neardeathData) {
+	public Tick(General plugin, File file, TimeData timeData, NearDeathData neardeathData, SaveBackupData savebackupData) {
 		this.plugin = plugin;
 		this.file = file;
 		this.timeData = timeData;
 		this.neardeathData = neardeathData;
+		this.savebackupData = savebackupData;
 		running = true;
 	}
 	
@@ -67,6 +74,7 @@ public class Tick extends Thread {
         					int minute = time.get(Calendar.MINUTE);
         				
         					Time.processTick(plugin, timeData, minute);
+        					SaveBackup.processTick(plugin, savebackupData, minute);
         				}
         				NearDeath.processTick(plugin, neardeathData, second);
         			}
@@ -100,6 +108,6 @@ public class Tick extends Thread {
 	private void logErrors(String emessage) {
 		String message = String.format("%1$tm-%1$td-%1$tY %1$tH %1$tM %1$tS : ", Calendar.getInstance());
 		
-		FileUtil.writeFile(new File(file, "Thread-Errors.txt"), message + emessage);
+		McFileUtil.writeFile(new File(file, "Thread-Errors.txt"), message + emessage);
 	}
 }

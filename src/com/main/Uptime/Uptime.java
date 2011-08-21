@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 import org.bukkit.command.CommandSender;
 
-import com.main.FileUtil;
+import com.main.McFileUtil;
 import com.main.General;
 
 /**
@@ -35,7 +35,7 @@ public class Uptime {
 	 */
 	public static void storeUptimeData(File file, long uptime) {
 		String message = String.format(" on %1$tm-%1$td-%1$tY %1$tH %1$tM...........", Calendar.getInstance());
-		FileUtil.writeFile(new File(file, "uptime-storage.txt"), "Server ran for: " + getUptime(uptime) + message);
+		McFileUtil.writeFile(new File(file, "uptime-storage.txt"), "Server ran for: " + getUptime(uptime) + message);
 	}
 	
 	/**

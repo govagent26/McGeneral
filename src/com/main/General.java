@@ -24,6 +24,8 @@ import com.main.PrefixPlugin.PrefixData; // "          "
 import com.main.PvpPlugin.PvpCommand; // Pvp Plugin
 import com.main.PvpPlugin.PvpData; // "          "
 import com.main.RandomPlugin.RandomCommand; // Random Plugin
+import com.main.SaveBackupPlugin.SaveBackupCommand; // Save Backup Data
+import com.main.SaveBackupPlugin.SaveBackupData; // "          "
 import com.main.TimePlugin.TimeCommand; // Time Plugin
 import com.main.TimePlugin.TimeData; // "          "
 import com.main.Uptime.Uptime; // Uptime Plugin
@@ -54,6 +56,9 @@ public class General extends JavaPlugin {
 	
 	/** The {@link #pvpData} variable holds the class that stores all the pvp data */
 	private PvpData pvpData;
+	
+	/** The {@link #savebackupData} variable holds the class that stores all the save backup data */
+	private SaveBackupData savebackupData;
 	
 	/** The {@link #uptime} variable holds the time when the server was started */
 	private long uptime;
@@ -86,7 +91,7 @@ public class General extends JavaPlugin {
 		getCommands();
 		
 		uptime = System.currentTimeMillis();
-		tick = new Tick(this, getDataFolder(), timeData, neardeathData);
+		tick = new Tick(this, getDataFolder(), timeData, neardeathData, savebackupData);
 	}
 	
 	/**
@@ -100,7 +105,7 @@ public class General extends JavaPlugin {
 	 * that store external plugin data.
 	 * <br>
 	 * {@link #timeData}, {@link #neardeathData}, {@link #aliasData}, {@link #prefixData},
-	 * {@link #pvpData}
+	 * {@link #pvpData}, {@link #savebackupData}
 	 * <br>
 	 * <b>Lastly:</b> A message is logged to the command prompt to inform the
 	 * server owner that all data has been successfully loaded.
@@ -119,6 +124,7 @@ public class General extends JavaPlugin {
 		aliasData = new AliasData(this, new McConfig(new File(file, "alias-settings.yml")));
 		prefixData = new PrefixData(new McConfig(new File(file, "prefix-settings.yml")));
 		pvpData = new PvpData(new McConfig(new File(file, "pvp-settings.yml")));
+		savebackupData = new SaveBackupData(new McConfig(new File(file, "savebackups-settings.yml")));
 		log.info("[McGeneral]: All data has been loaded from the data files");
 	}
 	
@@ -138,14 +144,14 @@ public class General extends JavaPlugin {
 	}
 	
 	/**
-	 * The {@link #getCommands()} method is called to register all commands and redirect
-	 * them to the individual command handler classes. 
+	 * The {@link #getCommands()} method registers all commands and redirect them to the
+	 * individual command handler classes. 
 	 * <br>
 	 * Plugins with command handlers:
 	 * <br>
 	 * <b>AliasCommand</b>, <b>EmoteCommand</b>, <b>NearDeathCommand</b>, 
-	 * <b>PrefixCommand</b>, <b>PvpCommand</b>, <b>RandomCommand</b>, <b>TimeCommand</b>, 
-	 * <b>UptimeCommand</b>, <b>WhoCommand</b>,
+	 * <b>PrefixCommand</b>, <b>PvpCommand</b>, <b>RandomCommand</b>, <b>SaveBackupCommand</b>,
+	 * <b>TimeCommand</b>, <b>UptimeCommand</b>, <b>WhoCommand</b>,
 	 */
 	private void getCommands() {
 		getCommand("alias").setExecutor(new AliasCommand(this, aliasData));
@@ -154,13 +160,14 @@ public class General extends JavaPlugin {
 		getCommand("prefix").setExecutor(new PrefixCommand(this, prefixData));
 		getCommand("pvp").setExecutor(new PvpCommand(this, pvpData));
 		getCommand("random").setExecutor(new RandomCommand(this));
+		getCommand("savebackup").setExecutor(new SaveBackupCommand(this, savebackupData));
 		getCommand("time").setExecutor(new TimeCommand(this, timeData));
 		getCommand("uptime").setExecutor(new UptimeCommand(this, uptime));
 		getCommand("who").setExecutor(new WhoCommand(this));
 	}
 	
 	/**
-	 * The {@link #sendMessage(String)} method is called to log a message to the console.
+	 * The {@link #sendMessage(String)} method logs a message to the console.
 	 * 
 	 * @param message the message to be logged
 	 * @see #sendMessage(CommandSender, String)
@@ -172,8 +179,8 @@ public class General extends JavaPlugin {
 	}
 	
 	/**
-	 * The {@link #sendMessage(CommandSender, String)} method is called to send a message
-	 * to an individual sender.
+	 * The {@link #sendMessage(CommandSender, String)} method sends a message to an individual
+	 * sender.
 	 * <p>
 	 * This method attempts to find out who the sender is. If it is a player, then the
 	 * {@link #sendMessage(Player, String)} method is called to see the message.
@@ -195,8 +202,7 @@ public class General extends JavaPlugin {
 	}
 	
 	/**
-	 * The {@link #sendMessage(Player, String)} method is called to send a message to a
-	 * player.
+	 * The {@link #sendMessage(Player, String)} method sends a message to a player.
 	 * 
 	 * @param player the player to display the message to
 	 * @param message the message to be displayed
@@ -209,8 +215,8 @@ public class General extends JavaPlugin {
 	}
 	
 	/**
-	 * The {@link #sendMessage(Player, String, int)} method is called to send a message
-	 * to the sender and to all players with the <b>radius</b> of the sender.
+	 * The {@link #sendMessage(Player, String, int)} method sends a message to the sender
+	 * and to all players with the <b>radius</b> of the sender.
 	 * <p>
 	 * After generating a list of entities in the <b>radius</b>, the entity is checked
 	 * to see if it is a player. If so, the {@link #sendMessage(Player, String)} method
@@ -235,8 +241,7 @@ public class General extends JavaPlugin {
 	}
 	
 	/**
-	 * The {@link #broadcast(String)} method is called to send a message to all players
-	 * on the server.
+	 * The {@link #broadcast(String)} method sends a message to all players on the server.
 	 * 
 	 * @param message the message to be broadcasted
 	 * @see #broadcast(String, boolean)
@@ -246,8 +251,8 @@ public class General extends JavaPlugin {
 	}
 	
 	/**
-	 * The {@link #broadcast(String, boolean)} method is called to send a message to all
-	 * players on the server and possibly to the console.
+	 * The {@link #broadcast(String, boolean)} method sends a message to all players on the
+	 * server and possibly to the console.
 	 * <p>
 	 * If <b>value</b> is true, then the message is logged to the console in addition to
 	 * being sent to all players by calling the {@link #sendMessage(String)} method. This

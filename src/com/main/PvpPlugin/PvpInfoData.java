@@ -27,7 +27,7 @@ public class PvpInfoData {
 	 * status.
 	 */
 	public void switchPvp() {
-		this.pvp = (pvp ? false : true);
+		this.pvp = !pvp;
 	}
 	
 	/**

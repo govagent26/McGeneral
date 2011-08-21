@@ -7,8 +7,8 @@ import java.util.Random;
 import com.main.McConfig;
 
 /**
- * The <b>HealthData</b> class is used to store all the health data that is in the
- * external health data file.
+ * The <b>NearDeathData</b> class is used to store all the near death data that is in the
+ * external near death data file.
  */
 public class NearDeathData {
 	
@@ -32,22 +32,22 @@ public class NearDeathData {
 	private List<String> messages;
 	
 	/**
-	 * The {@link #HealthData(McConfig)} constructor is called when the plugin is
+	 * The {@link #NearDeathData(McConfig)} constructor is called when the plugin is
 	 * initialized.
 	 * <p>
 	 * The constructor stores the {@link #config} variable for easy future access.
-	 * It then calls the {@link #readHealthData()} method to read data from the
+	 * It then calls the {@link #readNearDeathData()} method to read data from the
 	 * external yaml file and store it in this class.
 	 * 
-	 * @param config the configuration variable that can access the time data
+	 * @param config the configuration variable that can access the near death data
 	 */
 	public NearDeathData (McConfig config) {
 		this.config = config;
-		readHealthData();
+		readNearDeathData();
 	}
 	
 	/**
-	 * The {@link #readHealthData()} method is called when the data from the external 
+	 * The {@link #readNearDeathData()} method is called when the data from the external 
 	 * files needs to be read.
 	 * <p>
 	 * Data is read from the external yaml file and stored in many variables in this 
@@ -57,7 +57,7 @@ public class NearDeathData {
 	 * The variable data is stored in {@link #announce}, {@link #health},
 	 * {@link #interval}, and {@link #messages}.
 	 */
-	public void readHealthData() {
+	public void readNearDeathData() {
 		config.load();
 		announce = config.getBoolean(nodes[0], true);
 		health = config.getInt(nodes[1], 2);
@@ -82,12 +82,34 @@ public class NearDeathData {
 	 * changing the {@link #announce} variable data and editing the external
 	 * yaml file.
 	 * 
-	 * @param announce whether to announce near death messages at certain intervals.
+	 * @param announce whether to announce near death messages at certain intervals
 	 */
 	public void setAnnounceStatus(boolean announce) {
 		this.announce = announce;
 		config.load();
 		config.setProperty(nodes[0], announce);
+		config.save();
+	}
+	
+	/**
+	 * The {@link #getHealth()} method returns the near death health requirement.
+	 * 
+	 * @return the health of health needed to recieve a near death message
+	 */
+	public int getHealth() {
+		return health;
+	}
+	
+	/**
+	 * The {@link #setHealth(int)} method sets the near death health ammount by changing
+	 * the {@link #health} varaible data and editing the external yaml file.
+	 * 
+	 * @param health the near death health requirement
+	 */
+	public void setHealth(int health) {
+		this.health = health;
+		config.load();
+		config.setProperty(nodes[1], health);
 		config.save();
 	}
 	
@@ -115,31 +137,19 @@ public class NearDeathData {
 			return false;
 		}
 		config.load();
-		config.setProperty(nodes[1], interval);
+		config.setProperty(nodes[2], interval);
 		config.save();
 		return true;
 	}
 	
 	/**
-	 * The {@link #getHealth()} method returns the near death health requirement.
+	 * The {@link #getMessages()} method returns all the near death message from the
+	 * {@link #messages} variable.
 	 * 
-	 * @return the health of health needed to recieve a near death message
+	 * @return all the near death messages
 	 */
-	public int getHealth() {
-		return health;
-	}
-	
-	/**
-	 * The {@link #setHealth(int)} method sets the near death health ammount by changing
-	 * the {@link #health} varaible data and editing the external yaml file.
-	 * 
-	 * @param health the near death health requirement
-	 */
-	public void setHealth(int health) {
-		this.health = health;
-		config.load();
-		config.setProperty(nodes[2], health);
-		config.save();
+	public List<String> getMessages() {
+		return messages;
 	}
 	
 	/**
@@ -155,9 +165,9 @@ public class NearDeathData {
 	}
 	
 	/**
-	 * The {@link #checkInterval()} method checks to make sure that
-	 * the time interval is within bounds. If it is greater than 60 or less than
-	 * 1, then the {@link #interval} variable is assigned the value of 10.
+	 * The {@link #checkInterval()} method checks to make sure that the near death interval
+	 * is within bounds. If it is greater than 60 or less than 1, then the {@link #interval}
+	 * variable is assigned the value of 10.
 	 * 
 	 * @return true if the interval value is appropriate, otherwise false
 	 */

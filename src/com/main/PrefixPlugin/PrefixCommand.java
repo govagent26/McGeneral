@@ -54,7 +54,7 @@ public class PrefixCommand implements CommandExecutor {
 	 * If <b>'ph'</b> is entered, the usage data from the <b>plugin.yml</b> file is shown
 	 * to the sender.
 	 * 
-	 * @param sender the sender who entered the time command
+	 * @param sender the sender who entered the prefix command
 	 * @param command the overhead command that was entered(always 'prefix')
 	 * @param label the command actually typed in by the sender
 	 * @param args anything typed in after the original command

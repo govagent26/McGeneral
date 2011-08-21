@@ -40,7 +40,7 @@ public class UptimeCommand implements CommandExecutor {
 	 * This method calls the <b>reportTime</b> method from the <b>Uptime</b> class to
 	 * display the how long the server has been running to the sender.
 	 * 
-	 * @param sender the sender who entered the who command
+	 * @param sender the sender who entered the uptime command
 	 * @param command the overhead command that was entered(always 'uptime')
 	 * @param label the command actually typed in by the sender
 	 * @param args anything typed in after the original command

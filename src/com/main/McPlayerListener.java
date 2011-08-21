@@ -12,6 +12,7 @@ import com.main.PrefixPlugin.Prefix;
 import com.main.PrefixPlugin.PrefixData;
 import com.main.PvpPlugin.Pvp;
 import com.main.PvpPlugin.PvpData;
+import com.main.SaveBackupPlugin.SaveBackupData;
 
 /**
  * The <b>McPlayerListener</b> class is used to handle all registered <b>player
@@ -33,10 +34,13 @@ public class McPlayerListener extends PlayerListener {
 	
 	/**
 	 * The {@link #McPlayerListener(General plugin)} constructor is called to
-	 * transfer the {@link #plugin} data to this class.
+	 * transfer the {@link #plugin} data and the seperate plugin class data 
+	 * to this class for easy future access.
 	 * 
 	 * @param plugin the instance of the <b>McGeneral</b> plugin
 	 * @param aliasData the <b>AliasData</b> class that holds the alias data from the yaml
+	 * @param prefixData the <b>PrefixData</b> class that holds the prefix data from the yaml
+	 * @param pvpData the <b>PvpData</b> class that holds the pvp data from the yaml
 	 */
 	public McPlayerListener(General plugin, AliasData aliasData, PrefixData prefixData, PvpData pvpData) {
 		this.plugin = plugin;

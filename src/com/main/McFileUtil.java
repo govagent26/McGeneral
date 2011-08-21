@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * The <b>FileUtil</b> class contains various file utilities.
  */
-public class FileUtil {
+public class McFileUtil {
 
 	/**
 	 * The {@link #copyDirectory(File, File)} method is called to copy entire
@@ -92,7 +92,7 @@ public class FileUtil {
     }
     
     /**
-     * The {@link FileUtil#writeFile(File, String)} method is called to write a message
+     * The {@link McFileUtil#writeFile(File, String)} method is called to write a message
      * to a file.
      * 
      * @param file where to write the message to

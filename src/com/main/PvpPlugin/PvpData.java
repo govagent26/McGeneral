@@ -36,7 +36,7 @@ public class PvpData {
 	 * the {@link #readPvpData()} method to read data from the external yaml file 
 	 * and store it in this class.
 	 * 
-	 * @param config the configuration variable that can access the prefix data
+	 * @param config the configuration variable that can access the pvp data
 	 */
 	public PvpData(McConfig config) {
 		players = new HashMap<Player, PvpInfoData>();
