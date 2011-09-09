@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import com.main.NearDeathPlugin.NearDeath;
 import com.main.NearDeathPlugin.NearDeathData;
+import com.main.ReincarnationPlugin.Reincarnation;
 import com.main.SaveBackupPlugin.SaveBackup;
 import com.main.SaveBackupPlugin.SaveBackupData;
 import com.main.TimePlugin.Time;
@@ -75,6 +76,12 @@ public class Tick extends Thread {
         				
         					Time.processTick(plugin, timeData, minute);
         					SaveBackup.processTick(plugin, savebackupData, minute);
+        					
+        					if (minute == 0) {
+        						int hour = time.get(Calendar.HOUR_OF_DAY);
+        						
+        						Reincarnation.processTick(hour);
+        					}
         				}
         				NearDeath.processTick(plugin, neardeathData, second);
         			}

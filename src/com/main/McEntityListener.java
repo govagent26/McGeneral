@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityListener;
 
 import com.main.DeathAnnouncingPlugin.DeathAnnouncing;
 import com.main.PvpPlugin.PvpData;
+import com.main.ReincarnationPlugin.Reincarnation;
 
 /**
  * The <b>McEntityListener</b> class is used to handle all registered <b>entity
@@ -32,25 +33,38 @@ public class McEntityListener extends EntityListener {
 	 * <br>
 	 * It checks to see if the attacking entity and defending entity were players. If both were,
 	 * pvp status is checked to see if the damage is cancelled.
+	 * <br>
+	 * It also checks to see if the player died during the attack and checks to see if the player
+	 * will be reincarnated.
 	 * 
 	 * @param event the {@link #EntityDamageEvent} that stores all event and entity data
 	 */
 	@Override
-	public void onEntityDamage(EntityDamageEvent event) { 
-		if (event instanceof EntityDamageByEntityEvent) {
-			EntityDamageByEntityEvent EDBEE = (EntityDamageByEntityEvent)event;
+	public void onEntityDamage(EntityDamageEvent event) {
+		if (event.getEntity() instanceof Player) {
+			Player defender = (Player)event.getEntity();
 			
-			if (EDBEE.getDamager() instanceof Player && EDBEE.getEntity() instanceof Player) {
-				Player attacker = (Player)EDBEE.getEntity();
-				Player defender = (Player)EDBEE.getDamager();
+			// PVP PLUGIN
+			if (event instanceof EntityDamageByEntityEvent) {
+				EntityDamageByEntityEvent EDBEE = (EntityDamageByEntityEvent)event;
 				
-				if (!pvpData.getPvpStatus(attacker)) {
-					event.setCancelled(true);
-					plugin.sendMessage(attacker, "PvP is not allowed, you have it set 'off'");
-				} else if (!pvpData.getPvpStatus(defender)) {
-					event.setCancelled(true);
-					plugin.sendMessage(attacker, "PvP is not allowed, your opponent has it set 'off'");
+				if (EDBEE.getDamager() instanceof Player) {
+					Player attacker = (Player)EDBEE.getDamager();
+					
+					if (!pvpData.getPvpStatus(attacker)) {
+						event.setCancelled(true);
+						plugin.sendMessage(attacker, "PvP is not allowed, you have it set 'off'");
+					} else if (!pvpData.getPvpStatus(defender)) {
+						event.setCancelled(true);
+						plugin.sendMessage(attacker, "PvP is not allowed, your opponent has it set 'off'");
+					}
 				}
+			}
+			// REINCARNATION PLUGIN
+			if (!event.isCancelled() && defender.getHealth() <= 0 && !Reincarnation.checkAddPlayer(defender)) {
+				event.setCancelled(true);
+				defender.setHealth(20);
+				plugin.sendMessage(defender, defender.getDisplayName() + " has reincarnated for the day!!!!", 20);
 			}
 		}
 	}
@@ -67,7 +81,10 @@ public class McEntityListener extends EntityListener {
 	@Override
 	public void onEntityDeath(EntityDeathEvent event) {
 		if (event.getEntity() instanceof Player) {
-			DeathAnnouncing.announceDeath(plugin, (Player)event.getEntity());
+			Player player = (Player)event.getEntity();
+			
+			// DEATH ANNOUNCING PLUGIN
+			DeathAnnouncing.announceDeath(plugin, player);
 		}
 	}
 }
