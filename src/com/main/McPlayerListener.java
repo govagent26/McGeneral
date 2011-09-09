@@ -12,7 +12,6 @@ import com.main.PrefixPlugin.Prefix;
 import com.main.PrefixPlugin.PrefixData;
 import com.main.PvpPlugin.Pvp;
 import com.main.PvpPlugin.PvpData;
-import com.main.SaveBackupPlugin.SaveBackupData;
 
 /**
  * The <b>McPlayerListener</b> class is used to handle all registered <b>player
@@ -66,6 +65,7 @@ public class McPlayerListener extends PlayerListener {
 		Pvp.setPvp(player, pvpData);
 	}
 	
+	@Override
 	public void onPlayerChat(PlayerChatEvent event) {
 		Player player = event.getPlayer();
 		String prefix = Prefix.getPrefix(player, prefixData);

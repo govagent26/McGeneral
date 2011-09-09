@@ -121,7 +121,7 @@ public class NearDeathCommand implements CommandExecutor {
 
 	/**
 	 * The {@link #nds(CommandSender, String[])} method diplays the near death health
-	 * data or edit that data.
+	 * data or edits that data.
 	 * <p>
 	 * If <b>'nds'</b> is entered, then a message is sent to the sender displaying the near
 	 * death health.

@@ -10,6 +10,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
+import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -135,12 +136,15 @@ public class General extends JavaPlugin {
 	 */
 	private void registerEvents() {
 		PlayerListener pL = new McPlayerListener(this, aliasData, prefixData, pvpData);
+		EntityListener eL = new McEntityListener(this, pvpData);
 		
 		PluginManager pm = getServer().getPluginManager();
     	
 		pm.registerEvent(Event.Type.PLAYER_JOIN, pL, Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_CHAT, pL, Priority.Normal, this);
 		
+		pm.registerEvent(Event.Type.ENTITY_DAMAGE, eL, Priority.Normal, this);
+		pm.registerEvent(Event.Type.ENTITY_DEATH, eL, Priority.Normal, this);
 	}
 	
 	/**

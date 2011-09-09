@@ -2,6 +2,7 @@ McGeneral is a vast collection of different mods used by the Bukkit multiplayer 
 
 Included mods:
 -Alias Mod: Changes a player's display name and its color.
+-Death Announcing Mod: Announces when a player has died to all online players.
 -Emote Mod: Allows the use of emotes(chatting to only players in a short radius).
 -Health Chat Mod: Adds a player's health to chat in the form of a fraction with colors.
 -Near Death Mod: Sends message to dying players at a certain interval.
