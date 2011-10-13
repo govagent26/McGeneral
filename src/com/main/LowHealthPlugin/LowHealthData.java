@@ -1,4 +1,4 @@
-package com.main.NearDeathPlugin;
+package com.main.LowHealthPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +7,14 @@ import java.util.Random;
 import com.main.McConfig;
 
 /**
- * The <b>NearDeathData</b> class is used to store all the near death data that is in the
- * external near death data file.
+ * The <b>LowHealthData</b> class is used to store all the low health data that is in the
+ * external low health data file.
  */
-public class NearDeathData {
+public class LowHealthData {
 	
 	/** The {@link #nodes} variable holds the stings for accessing the data file nodes */
-	private String[] nodes = {"health.near-death.annouce", "health.near-death.health",
-			"health.near-death.interval", "health.near-death.messages"};
+	private String[] nodes = {"health.low-health.annouce", "health.low-health.health",
+			"health.low-health.interval", "health.low-health.messages"};
 	
 	/** The {@link #config} variable is used to access the <b>Config</b> class */
 	private McConfig config;
@@ -22,32 +22,32 @@ public class NearDeathData {
 	/** The {@link #annouce} variable that holds whether or not to announce the messages */
 	private boolean announce;
 	
-	/** The {@link #health} variable that holds at what health to announce near death messages */
+	/** The {@link #health} variable that holds at what health to announce low health messages */
 	private int health;
 	
-	/** The {@link #interval} variable that holds near death announcing interval(in seconds) */
+	/** The {@link #interval} variable that holds low health announcing interval(in seconds) */
 	private int interval;
 	
-	/** The {@link #messages} variable that holds all near death messages */
+	/** The {@link #messages} variable that holds all low health messages */
 	private List<String> messages;
 	
 	/**
-	 * The {@link #NearDeathData(McConfig)} constructor is called when the plugin is
+	 * The {@link #LowHealthData(McConfig)} constructor is called when the plugin is
 	 * initialized.
 	 * <p>
 	 * The constructor stores the {@link #config} variable for easy future access.
-	 * It then calls the {@link #readNearDeathData()} method to read data from the
+	 * It then calls the {@link #readLowHealthData()} method to read data from the
 	 * external yaml file and store it in this class.
 	 * 
-	 * @param config the configuration variable that can access the near death data
+	 * @param config the configuration variable that can access the low health data
 	 */
-	public NearDeathData (McConfig config) {
+	public LowHealthData (McConfig config) {
 		this.config = config;
-		readNearDeathData();
+		readLowHealthData();
 	}
 	
 	/**
-	 * The {@link #readNearDeathData()} method is called when the data from the external 
+	 * The {@link #readLowHealthData()} method is called when the data from the external 
 	 * files needs to be read.
 	 * <p>
 	 * Data is read from the external yaml file and stored in many variables in this 
@@ -57,7 +57,7 @@ public class NearDeathData {
 	 * The variable data is stored in {@link #announce}, {@link #health},
 	 * {@link #interval}, and {@link #messages}.
 	 */
-	public void readNearDeathData() {
+	public void readLowHealthData() {
 		config.load();
 		announce = config.getBoolean(nodes[0], true);
 		health = config.getInt(nodes[1], 2);
@@ -69,7 +69,7 @@ public class NearDeathData {
 	}
 	
 	/**
-	 * The {@link #getAnnounceStatus()} method returns the near death announcing status.
+	 * The {@link #getAnnounceStatus()} method returns the low health announcing status.
 	 * 
 	 * @return whether or not to announce near get messages
 	 */
@@ -78,11 +78,11 @@ public class NearDeathData {
 	}
 	
 	/**
-	 * The {@link #setAnnounceStatus()} method sets the near death announce status by
+	 * The {@link #setAnnounceStatus()} method sets the low health announce status by
 	 * changing the {@link #announce} variable data and editing the external
 	 * yaml file.
 	 * 
-	 * @param announce whether to announce near death messages at certain intervals
+	 * @param announce whether to announce low health messages at certain intervals
 	 */
 	public void setAnnounceStatus(boolean announce) {
 		this.announce = announce;
@@ -92,19 +92,19 @@ public class NearDeathData {
 	}
 	
 	/**
-	 * The {@link #getHealth()} method returns the near death health requirement.
+	 * The {@link #getHealth()} method returns the low health requirement.
 	 * 
-	 * @return the health of health needed to recieve a near death message
+	 * @return the health of health needed to recieve a low health message
 	 */
 	public int getHealth() {
 		return health;
 	}
 	
 	/**
-	 * The {@link #setHealth(int)} method sets the near death health ammount by changing
+	 * The {@link #setHealth(int)} method sets the low health level ammount by changing
 	 * the {@link #health} varaible data and editing the external yaml file.
 	 * 
-	 * @param health the near death health requirement
+	 * @param health the low health health requirement
 	 */
 	public void setHealth(int health) {
 		this.health = health;
@@ -114,21 +114,21 @@ public class NearDeathData {
 	}
 	
 	/**
-	 * The {@link #getInterval()} method returns the near death announcing interval.
+	 * The {@link #getInterval()} method returns the low health announcing interval.
 	 * 
-	 * @return the interval at which to announce near death messages
+	 * @return the interval at which to announce low health messages
 	 */
 	public int getInterval() {
 		return interval;
 	}
 	
 	/**
-	 * The {@link #setInterval()} method sets the near death announcing interval by
+	 * The {@link #setInterval()} method sets the low health announcing interval by
 	 * changing the {@link #interval} variable data and editing the external
 	 * yaml file. It also calls the {@link #checkInterval()} method to verify 
 	 * that the interval is set appropriately.
 	 * 
-	 * @param interval the interval at which near death messages are announced on the server
+	 * @param interval the interval at which low health messages are announced on the server
 	 * @return true is the interval value is changed, otherwise false
 	 */
 	public boolean setInterval(int interval) {
@@ -143,10 +143,10 @@ public class NearDeathData {
 	}
 	
 	/**
-	 * The {@link #getMessages()} method returns all the near death message from the
+	 * The {@link #getMessages()} method returns all the low health message from the
 	 * {@link #messages} variable.
 	 * 
-	 * @return all the near death messages
+	 * @return all the low health messages
 	 */
 	public List<String> getMessages() {
 		return messages;
@@ -156,7 +156,7 @@ public class NearDeathData {
 	 * The {@link #getRandomMessage()} method randomly picks a message from
 	 * the {@link #messages} variable to return.
 	 * 
-	 * @return a random near death message
+	 * @return a random low health message
 	 */
 	public String getRandomMessage() {
 		Random random = new Random();
@@ -165,7 +165,7 @@ public class NearDeathData {
 	}
 	
 	/**
-	 * The {@link #checkInterval()} method checks to make sure that the near death interval
+	 * The {@link #checkInterval()} method checks to make sure that the low health interval
 	 * is within bounds. If it is greater than 60 or less than 1, then the {@link #interval}
 	 * variable is assigned the value of 10.
 	 * 

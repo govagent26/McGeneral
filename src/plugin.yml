@@ -1,6 +1,6 @@
 name: McGeneral
 main: com.main.General
-version: 0.0.18
+version: 0.0.19
 author: govagent26
 database: false
 description: McGeneral is a combination of many bukkit plugins.
@@ -23,19 +23,19 @@ commands:
     usage: >
            emote/me/e- sends an emote to players
            Only in-game players may use the emote command
-  neardeath:
-    aliases: [nd, nda, nds, ndi, ndr, ndh]
-    description: changes near death announcement settings.
+  lowhealth:
+    aliases: [lh, lha, lhs, lhi, lhr, lhh]
+    description: changes low health announcement settings.
     usage: >
-           neardeath/nd- lists ammount of messages to sender
-           nda- shows near death announce status
-           nda (on/off)- changes announce status to (on or off)
-           nds- shows near death health requirement
-           nds (health)- changes health requirement to (health)
-           ndi- shows near death announcing interval
-           ndi (interval)- chanes interval to (interval)
-           ndr- reloads the near death data from the yaml file
-           ndh- near death help, shows all commands to sender
+           lowhealth/lh- lists ammount of messages to sender
+           lha- shows low health announce status
+           lha (on/off)- changes announce status to (on or off)
+           lhs- shows low health requirement
+           lhs (health)- changes health requirement to (health)
+           lhi- shows low health announcing interval
+           lhi (interval)- chanes interval to (interval)
+           lhr- reloads the low health data from the yaml file
+           lhh- low health help, shows all commands to sender
   prefix:
     aliases: [p, pc, pn, pr, ph]
     description: changes a players prefix.
@@ -94,7 +94,3 @@ commands:
     aliases: u
     description: shows how long the server has been running.
     usage: uptime/u- displays the uptime of the server
-  who:
-    aliases: list
-    description: shows who is online to sender.
-    usage: who/list- shows a list of online players to sender

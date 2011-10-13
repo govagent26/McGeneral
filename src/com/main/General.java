@@ -18,8 +18,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.main.AliasPlugin.AliasCommand; // Alias Plugin
 import com.main.AliasPlugin.AliasData; // "          "
 import com.main.EmotePlugin.EmoteCommand; // Emote Plugin
-import com.main.NearDeathPlugin.NearDeathCommand; // Near Death Plugin
-import com.main.NearDeathPlugin.NearDeathData; // "          "
+import com.main.LowHealthPlugin.LowHealthCommand; // Near Death Plugin
+import com.main.LowHealthPlugin.LowHealthData; // "          "
 import com.main.PrefixPlugin.PrefixCommand; // Prefix Plugin
 import com.main.PrefixPlugin.PrefixData; // "          "
 import com.main.PvpPlugin.PvpCommand; // Pvp Plugin
@@ -29,9 +29,8 @@ import com.main.SaveBackupPlugin.SaveBackupCommand; // Save Backup Data
 import com.main.SaveBackupPlugin.SaveBackupData; // "          "
 import com.main.TimePlugin.TimeCommand; // Time Plugin
 import com.main.TimePlugin.TimeData; // "          "
-import com.main.Uptime.Uptime; // Uptime Plugin
-import com.main.Uptime.UptimeCommand; // "          "
-import com.main.WhoPlugin.WhoCommand; // Who Plugin
+import com.main.UptimePlugin.Uptime; // Uptime Plugin
+import com.main.UptimePlugin.UptimeCommand; // "          "
 
 /**
  * The <b>General</b> class is the main class of the <b>McGeneral</b> plugin.
@@ -46,8 +45,8 @@ public class General extends JavaPlugin {
 	/** The {@link #timeData} variable holds the class that stores all the time data */
 	private TimeData timeData;
 	
-	/** The {@link #neardeathData} variable holds the class that stores all the near death data */
-	private NearDeathData neardeathData;
+	/** The {@link #lowhealthData} variable holds the class that stores all the near death data */
+	private LowHealthData lowhealthData;
 	
 	/** The {@link #aliasData} variable holds the class that stores all the alias data */
 	private AliasData aliasData;
@@ -92,7 +91,7 @@ public class General extends JavaPlugin {
 		getCommands();
 		
 		uptime = System.currentTimeMillis();
-		tick = new Tick(this, getDataFolder(), timeData, neardeathData, savebackupData);
+		tick = new Tick(this, getDataFolder(), timeData, lowhealthData, savebackupData);
 	}
 	
 	/**
@@ -105,7 +104,7 @@ public class General extends JavaPlugin {
 	 * <b>Second:</b> A new class is created for each data file to store data. Variables
 	 * that store external plugin data.
 	 * <br>
-	 * {@link #timeData}, {@link #neardeathData}, {@link #aliasData}, {@link #prefixData},
+	 * {@link #timeData}, {@link #lowhealthData}, {@link #aliasData}, {@link #prefixData},
 	 * {@link #pvpData}, {@link #savebackupData}
 	 * <br>
 	 * <b>Lastly:</b> A message is logged to the command prompt to inform the
@@ -121,7 +120,7 @@ public class General extends JavaPlugin {
 			}
 		}
 		timeData = new TimeData(new McConfig(new File(file, "time-settings.yml")));
-		neardeathData = new NearDeathData(new McConfig(new File(file, "neardeath-settings.yml")));
+		lowhealthData = new LowHealthData(new McConfig(new File(file, "lowhealth-settings.yml")));
 		aliasData = new AliasData(this, new McConfig(new File(file, "alias-settings.yml")));
 		prefixData = new PrefixData(new McConfig(new File(file, "prefix-settings.yml")));
 		pvpData = new PvpData(new McConfig(new File(file, "pvp-settings.yml")));
@@ -153,21 +152,20 @@ public class General extends JavaPlugin {
 	 * <br>
 	 * Plugins with command handlers:
 	 * <br>
-	 * <b>AliasCommand</b>, <b>EmoteCommand</b>, <b>NearDeathCommand</b>, 
+	 * <b>AliasCommand</b>, <b>EmoteCommand</b>, <b>LowHealthCommand</b>, 
 	 * <b>PrefixCommand</b>, <b>PvpCommand</b>, <b>RandomCommand</b>, <b>SaveBackupCommand</b>,
 	 * <b>TimeCommand</b>, <b>UptimeCommand</b>, <b>WhoCommand</b>,
 	 */
 	private void getCommands() {
 		getCommand("alias").setExecutor(new AliasCommand(this, aliasData));
 		getCommand("emote").setExecutor(new EmoteCommand(this));
-		getCommand("neardeath").setExecutor(new NearDeathCommand(this, neardeathData));
+		getCommand("lowhealth").setExecutor(new LowHealthCommand(this, lowhealthData));
 		getCommand("prefix").setExecutor(new PrefixCommand(this, prefixData));
 		getCommand("pvp").setExecutor(new PvpCommand(this, pvpData));
 		getCommand("random").setExecutor(new RandomCommand(this));
 		getCommand("savebackup").setExecutor(new SaveBackupCommand(this, savebackupData));
 		getCommand("time").setExecutor(new TimeCommand(this, timeData));
 		getCommand("uptime").setExecutor(new UptimeCommand(this, uptime));
-		getCommand("who").setExecutor(new WhoCommand(this));
 	}
 	
 	/**

@@ -3,8 +3,8 @@ package com.main;
 import java.io.File;
 import java.util.Calendar;
 
-import com.main.NearDeathPlugin.NearDeath;
-import com.main.NearDeathPlugin.NearDeathData;
+import com.main.LowHealthPlugin.LowHealth;
+import com.main.LowHealthPlugin.LowHealthData;
 import com.main.ReincarnationPlugin.Reincarnation;
 import com.main.SaveBackupPlugin.SaveBackup;
 import com.main.SaveBackupPlugin.SaveBackupData;
@@ -23,8 +23,8 @@ public class Tick extends Thread {
 	/** The {@link #timeData} variable holds the class that stores all the time data */
 	private TimeData timeData;
 	
-	/** The {@link #neardeathData} variable holds the class that stores all the near death data */
-	private NearDeathData neardeathData;
+	/** The {@link #lowhealthData} variable holds the class that stores all the near death data */
+	private LowHealthData lowhealthData;
 	
 	/** The {@link #savebackupData} variable holds the class that stores all the save backup data */
 	private SaveBackupData savebackupData;
@@ -46,14 +46,14 @@ public class Tick extends Thread {
 	 * @param plugin the plugin data for the <b>McGeneral</b> class
 	 * @param file the dataFolder for this plugin
 	 * @param timeData the <b>TimeData</b> class that holds the time settings from the yaml
-	 * @param neardeathData the <b>NearDeathData</b> class that holds the health settings from the yaml
+	 * @param lowhealthData the <b>LowHealthData</b> class that holds the health settings from the yaml
 	 * @param savebackupData the <b>SaveBackupData</b> class that holds the save backup settings from the yaml
 	 */
-	public Tick(General plugin, File file, TimeData timeData, NearDeathData neardeathData, SaveBackupData savebackupData) {
+	public Tick(General plugin, File file, TimeData timeData, LowHealthData lowhealthData, SaveBackupData savebackupData) {
 		this.plugin = plugin;
 		this.file = file;
 		this.timeData = timeData;
-		this.neardeathData = neardeathData;
+		this.lowhealthData = lowhealthData;
 		this.savebackupData = savebackupData;
 		running = true;
 	}
@@ -83,7 +83,7 @@ public class Tick extends Thread {
         						Reincarnation.processTick(hour);
         					}
         				}
-        				NearDeath.processTick(plugin, neardeathData, second);
+        				LowHealth.processTick(plugin, lowhealthData, second);
         			}
         		}
         	});
