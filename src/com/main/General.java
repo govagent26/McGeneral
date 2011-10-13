@@ -18,7 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.main.AliasPlugin.AliasCommand; // Alias Plugin
 import com.main.AliasPlugin.AliasData; // "          "
 import com.main.EmotePlugin.EmoteCommand; // Emote Plugin
-import com.main.LowHealthPlugin.LowHealthCommand; // Near Death Plugin
+import com.main.LowHealthPlugin.LowHealthCommand; // Low Health Plugin
 import com.main.LowHealthPlugin.LowHealthData; // "          "
 import com.main.PrefixPlugin.PrefixCommand; // Prefix Plugin
 import com.main.PrefixPlugin.PrefixData; // "          "
@@ -45,7 +45,7 @@ public class General extends JavaPlugin {
 	/** The {@link #timeData} variable holds the class that stores all the time data */
 	private TimeData timeData;
 	
-	/** The {@link #lowhealthData} variable holds the class that stores all the near death data */
+	/** The {@link #lowhealthData} variable holds the class that stores all the low health data */
 	private LowHealthData lowhealthData;
 	
 	/** The {@link #aliasData} variable holds the class that stores all the alias data */

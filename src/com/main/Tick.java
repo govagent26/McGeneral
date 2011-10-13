@@ -23,7 +23,7 @@ public class Tick extends Thread {
 	/** The {@link #timeData} variable holds the class that stores all the time data */
 	private TimeData timeData;
 	
-	/** The {@link #lowhealthData} variable holds the class that stores all the near death data */
+	/** The {@link #lowhealthData} variable holds the class that stores all the low health data */
 	private LowHealthData lowhealthData;
 	
 	/** The {@link #savebackupData} variable holds the class that stores all the save backup data */
